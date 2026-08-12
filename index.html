@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Honeywell 自動控制完整教學教案 — 算力中心 × 辦公大樓試運轉實務</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+:root{
+  --honey:#d9232e; --dark:#1a1f36; --blue:#0f4c81; --teal:#0e7c7b;
+  --gold:#b8860b; --bg:#f6f7fb; --card:#ffffff; --line:#dfe3ee;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Microsoft JhengHei","PingFang TC","Noto Sans TC",sans-serif;background:var(--bg);color:#222;line-height:1.85;font-size:16px}
+.layout{display:flex;min-height:100vh}
+nav{position:fixed;top:0;left:0;width:300px;height:100vh;overflow-y:auto;background:var(--dark);color:#cfd4e6;padding:24px 18px;font-size:13.5px;z-index:10}
+nav h2{color:#fff;font-size:16px;margin:0 0 4px}
+nav .sub{color:#8a91ad;font-size:12px;margin-bottom:16px}
+nav a{display:block;color:#cfd4e6;text-decoration:none;padding:5px 10px;border-radius:6px;border-left:3px solid transparent}
+nav a:hover{background:#262c4a;color:#fff;border-left-color:var(--honey)}
+nav .grp{margin:14px 0 4px;color:#f0b429;font-size:12px;letter-spacing:2px;font-weight:bold}
+main{margin-left:300px;flex:1;padding:36px 44px;max-width:1180px}
+@media(max-width:980px){nav{display:none}main{margin-left:0;padding:20px}}
+h1{font-size:30px;color:var(--dark);border-bottom:4px solid var(--honey);padding-bottom:12px}
+h2{font-size:24px;color:var(--blue);margin-top:56px;padding:10px 16px;background:linear-gradient(90deg,#eaf1fb,transparent);border-left:6px solid var(--blue);border-radius:4px}
+h3{font-size:19px;color:var(--teal);margin-top:34px;border-bottom:2px dashed var(--line);padding-bottom:6px}
+h4{font-size:16.5px;color:var(--dark);margin-top:22px}
+section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:26px 30px;margin:22px 0;box-shadow:0 2px 10px rgba(20,30,60,.05)}
+.lead{font-size:17px;color:#444}
+.badge{display:inline-block;background:var(--honey);color:#fff;font-size:12px;padding:2px 10px;border-radius:12px;margin-right:8px;vertical-align:middle}
+.badge.b2{background:var(--blue)} .badge.b3{background:var(--teal)} .badge.b4{background:var(--gold)}
+.callout{border-radius:10px;padding:16px 20px;margin:16px 0;border:1px solid}
+.callout.pain{background:#fdf0f0;border-color:#f0c0c0}
+.callout.pain::before{content:"⚠ 痛點解析";display:block;font-weight:bold;color:#b02a2a;margin-bottom:6px}
+.callout.key{background:#eef7f7;border-color:#bfe0e0}
+.callout.key::before{content:"★ 重要知識點";display:block;font-weight:bold;color:var(--teal);margin-bottom:6px}
+.callout.tip{background:#fbf6e9;border-color:#e8d9ae}
+.callout.tip::before{content:"◆ 實務提示";display:block;font-weight:bold;color:var(--gold);margin-bottom:6px}
+.callout.review{background:#eef2fd;border-color:#c4d2f5}
+.callout.review::before{content:"✎ 知識點複習";display:block;font-weight:bold;color:var(--blue);margin-bottom:6px}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px;background:#fff}
+th{background:var(--blue);color:#fff;padding:9px 10px;text-align:left;font-weight:600}
+td{border:1px solid var(--line);padding:8px 10px;vertical-align:top}
+tr:nth-child(even) td{background:#f7f9fd}
+.fig{text-align:center;margin:22px 0}
+.fig img{max-width:100%;border:1px solid var(--line);border-radius:8px;background:#fff;padding:8px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.fig .cap{font-size:13.5px;color:#555;margin-top:8px}
+.fig .cap b{color:var(--honey)}
+details{border:1px solid var(--line);border-radius:8px;margin:10px 0;background:#fcfcfe}
+details summary{cursor:pointer;padding:10px 16px;font-weight:bold;color:var(--dark)}
+details[open] summary{border-bottom:1px solid var(--line);color:var(--blue)}
+details .body{padding:12px 18px}
+.tree ul{list-style:none;padding-left:22px;border-left:2px solid var(--line)}
+.tree>ul{border-left:none;padding-left:0}
+.tree li{margin:6px 0;position:relative}
+.tree li::before{content:"";position:absolute;left:-24px;top:14px;width:20px;height:2px;background:var(--line)}
+.tree>ul>li::before{display:none}
+.tree .node{display:inline-block;padding:4px 14px;border-radius:8px;font-size:14px}
+.tree .root{background:var(--honey);color:#fff;font-weight:bold;font-size:17px}
+.tree .trunk{background:var(--blue);color:#fff;font-weight:bold}
+.tree .branch{background:#e8eef9;color:var(--dark);border:1px solid #c6d4ee}
+.tree .leaf{background:#fff;border:1px solid var(--line);color:#444;font-size:13px}
+.mermaid{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px;margin:16px 0;text-align:center;overflow-x:auto}
+.kpi{display:flex;flex-wrap:wrap;gap:14px;margin:16px 0}
+.kpi .box{flex:1;min-width:180px;background:linear-gradient(135deg,#123a63,#0f4c81);color:#fff;border-radius:12px;padding:16px 18px}
+.kpi .box .num{font-size:26px;font-weight:bold;color:#ffd35c}
+.kpi .box .lbl{font-size:13px;opacity:.9}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+.mini{font-size:13px;color:#666}
+code{background:#f0f1f6;padding:1px 6px;border-radius:4px;font-family:Consolas,monospace;font-size:13.5px}
+ol.steps{counter-reset:st;list-style:none;padding-left:0}
+ol.steps>li{counter-increment:st;margin:10px 0;padding-left:46px;position:relative}
+ol.steps>li::before{content:counter(st);position:absolute;left:0;top:2px;width:30px;height:30px;border-radius:50%;background:var(--honey);color:#fff;text-align:center;line-height:30px;font-weight:bold}
+.chk li{list-style:none;padding-left:26px;position:relative;margin:5px 0}
+.chk li::before{content:"☐";position:absolute;left:0;color:var(--blue);font-weight:bold}
+.toplink{float:right;font-size:12px;color:#999}
+footer{margin:50px 0 20px;color:#888;font-size:13px;text-align:center}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav>
+  <h2>Honeywell 自動控制</h2>
+  <div class="sub">完整教學教案｜算力中心 × 辦公大樓<br>依據 Engineering Manual of Automatic Control (SI Edition)</div>
+  <div class="grp">課程總覽</div>
+  <a href="#cover">◎ 課程封面與學習目標</a>
+  <a href="#tree">◎ 知識樹總覽</a>
+  <a href="#map">◎ 原書章節對照地圖</a>
+  <div class="grp">基礎篇</div>
+  <a href="#m1">M1 自動控制基礎原理</a>
+  <a href="#m2">M2 濕空氣與焓濕圖</a>
+  <a href="#m3">M3 氣動／電動／電子控制</a>
+  <a href="#m4">M4 DDC 微電腦控制</a>
+  <a href="#m5">M5 BMS 與 IO 硬體點表</a>
+  <a href="#m6">M6 IAQ 室內空氣品質與煙控</a>
+  <div class="grp">應用篇</div>
+  <a href="#m7">M7 空調箱 AHU 控制應用</a>
+  <a href="#m8">M8 風量與風管靜壓控制</a>
+  <a href="#m9">M9 冰水／鍋爐／水系統</a>
+  <a href="#m10">M10 末端與房間控制</a>
+  <a href="#m11">M11 閥門與風門選型計算</a>
+  <div class="grp">工程實務篇</div>
+  <a href="#m12">M12 試運轉測試程序與驗證</a>
+  <a href="#m13">M13 交付文件完整解析</a>
+  <a href="#m14">M14 個案 A：AI 算力中心</a>
+  <a href="#m15">M15 個案 B：智慧辦公大樓</a>
+  <a href="#m16">M16 其他產業應用</a>
+  <a href="#m17">M17 痛點／成本／效益分析</a>
+  <a href="#m18">M18 進階工程實務</a>
+  <a href="#m19">M19 總複習與結業測驗</a>
+</nav>
+<main>
+
+<!-- ================= 封面 ================= -->
+<section id="cover">
+<h1>Honeywell 自動控制（Automatic Control）<br>完整教學教案與試運轉實務手冊</h1>
+<p class="lead">本教案以 Honeywell《<b>Engineering Manual of Automatic Control for Commercial Buildings — SI Edition</b>》（1934 年首版、1997 年 SI 版，全書 512 頁）為藍本，由資深算力中心與自動控制試運轉顧問視角重新編排：將原書的控制理論、氣動／電動／電子／DDC 控制、BMS、空調箱／風系統／冰水鍋爐水系統應用、閥門風門工程資訊，轉化為 <b>19 個教學模組</b>，並融合 <b>AI 算力中心</b>與<b>辦公大樓</b>兩大實戰個案，補強 IO 硬體、測試程序、驗證重點、交付文件、痛點、成本與效益分析。</p>
+<div class="kpi">
+  <div class="box"><div class="num">512 頁</div><div class="lbl">原書內容完整解析</div></div>
+  <div class="box"><div class="num">19 模組</div><div class="lbl">知識樹結構化教學</div></div>
+  <div class="box"><div class="num">58 幅</div><div class="lbl">原文圖表擷取解說</div></div>
+  <div class="box"><div class="num">2 + 6</div><div class="lbl">主個案 + 產業應用</div></div>
+</div>
+<h3>學習目標</h3>
+<ul>
+<li>理解閉迴路控制、二位置／浮動／比例／PI／PID 控制原理，並能判讀原書控制迴路圖。</li>
+<li>掌握感測器、控制器、致動器、閥門與風門等 IO 硬體之選用、接線與校驗。</li>
+<li>能獨立規劃 AHU、VAV、冰水主機群、鍋爐、一次側／二次側水系統之控制策略。</li>
+<li>具備試運轉顧問能力：點對點測試（P2P）、功能性能測試（FPT）、趨勢記錄驗證、煙控驗收測試。</li>
+<li>能編製與審查完整交付文件：控制圖說、點表、操作程序（SOO）、圖控畫面、竣工文件與教育訓練。</li>
+<li>以 AI 算力中心與辦公大樓個案融會貫通，並延伸至醫院、半導體、藥廠等產業。</li>
+</ul>
+<h3>適用對象與建議學習路徑</h3>
+<table>
+<tr><th>對象</th><th>建議路徑</th><th>時數</th></tr>
+<tr><td>自控初學者／新進工程師</td><td>M1 → M2 → M3 → M4 → M5 → M7 → M19</td><td>24 hr</td></tr>
+<tr><td>試運轉（Cx／TAB）工程師</td><td>M5 → M7–M11 → <b>M12 → M13</b> → M14/M15</td><td>20 hr</td></tr>
+<tr><td>算力中心機電／營運主管</td><td>M1 速覽 → M5 → M9 → <b>M14</b> → M17 → M18</td><td>12 hr</td></tr>
+<tr><td>設計顧問／監造</td><td>全程，重點 M11 選型、M13 交付文件審查</td><td>32 hr</td></tr>
+</table>
+</section>
+
+<!-- ================= 知識樹 ================= -->
+<section id="tree">
+<h2>知識樹總覽 Knowledge Tree</h2>
+<p>整門課程是一棵樹：<b>根</b>是控制理論，<b>幹</b>是控制技術世代（氣動→電動→電子→DDC→BMS），<b>枝</b>是各子系統應用，<b>葉</b>是每個可量測、可測試、可交付的具體知識點。試運轉與交付文件是<b>果實</b>——理論最終必須收斂到「測得過、交得出」。</p>
+<div class="tree">
+<ul>
+<li><span class="node root">Honeywell 自動控制知識體系</span>
+<ul>
+<li><span class="node trunk">Ⅰ. 控制基礎層（Why）</span>
+<ul>
+<li><span class="node branch">M1 控制基礎：閉迴路／二位置／浮動／P／PI／PID／Reset</span>
+<ul><li><span class="node leaf">感測元件：雙金屬、RTD、熱電偶、濕度、流量、壓力</span></li>
+<li><span class="node leaf">致動器：氣動膜片、電動馬達、Series 40/60/80/90</span></li>
+<li><span class="node leaf">程序動態：熱容量、死區時間、偏移 Offset</span></li></ul></li>
+<li><span class="node branch">M2 濕空氣熱力學：焓濕圖、混合、加熱／冷卻／加濕／除濕過程</span>
+<ul><li><span class="node leaf">ASHRAE Chart No.1/2 判讀</span></li><li><span class="node leaf">外氣混合計算 MAT = 0.75·RA + 0.25·OA</span></li></ul></li>
+</ul></li>
+<li><span class="node trunk">Ⅱ. 控制技術層（How — 硬體）</span>
+<ul>
+<li><span class="node branch">M3 氣動控制：噴嘴擋板、中繼閥、EP/PE 轉換</span></li>
+<li><span class="node branch">M3 電動控制：Series 40 二位置／60 浮動／90 比例</span></li>
+<li><span class="node branch">M3 電子控制：RTD／熱電偶／固態感測、E/P 轉換器</span></li>
+<li><span class="node branch">M4 DDC：微處理器、控制軟體、最佳啟停、焓值決策</span></li>
+<li><span class="node branch">M5 BMS：階層架構、通訊匯流排、IO 點表、圖控</span>
+<ul><li><span class="node leaf">IO 硬體：AI／AO／DI／DO、4–20 mA、0–10 V、乾接點</span></li>
+<li><span class="node leaf">點表編製（原書 Fig.8 I/O Summary Form）</span></li></ul></li>
+<li><span class="node branch">M6 IAQ 與煙控：過濾、流量追蹤、加壓防煙、UL 864/NFPA 92A</span></li>
+</ul></li>
+<li><span class="node trunk">Ⅲ. 系統應用層（What — 子系統）</span>
+<ul>
+<li><span class="node branch">M7 AHU：啟停→混風→節能器→預熱→加濕→冷卻→除濕→全年運轉</span></li>
+<li><span class="node branch">M8 風系統：VAV、風管靜壓、皮托管、回風機流量追蹤</span></li>
+<li><span class="node branch">M9 冰水／鍋爐／水配送：主機群台數、冷卻水塔、一次/二次側泵浦</span></li>
+<li><span class="node branch">M10 房間末端：VAV Box、風機末端、FCU、熱泵</span></li>
+<li><span class="node branch">M11 閥門風門工程：等百分比特性、Cv 計算、風門洩漏等級</span></li>
+</ul></li>
+<li><span class="node trunk">Ⅳ. 工程交付層（Deliver &amp; Verify）</span>
+<ul>
+<li><span class="node branch">M12 試運轉：P2P → 校正 → FPT → 趨勢驗證 → 季節測試</span></li>
+<li><span class="node branch">M13 交付文件：設計意圖→控制圖→點表→SOO→圖控→竣工→O&amp;M</span></li>
+</ul></li>
+<li><span class="node trunk">Ⅴ. 個案與產業層（Practice）</span>
+<ul>
+<li><span class="node branch">M14 AI 算力中心：PUE、N+1、精密空調、水冷/液冷介面</span></li>
+<li><span class="node branch">M15 辦公大樓：舒適、節能、租戶計費</span></li>
+<li><span class="node branch">M16 醫院／半導體／藥廠／商場／飯店／區域供冷</span></li>
+<li><span class="node branch">M17–M19 痛點成本效益／進階實務／總複習</span></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div class="callout key">知識樹學習法：每學完一枝，回到本圖自問「這片葉子在 AI 算力中心長什麼樣子？在辦公大樓長什麼樣子？」——能回答兩個場景，才算真正內化。</div>
+</section>
+
+<!-- ================= 章節對照 ================= -->
+<section id="map">
+<h2>原書章節 ↔ 教學模組對照地圖</h2>
+<table>
+<tr><th>原書章節（SI Edition）</th><th>原書頁碼</th><th>對應模組</th><th>教案加值內容</th></tr>
+<tr><td>Control Fundamentals 控制基礎</td><td>3–46</td><td>M1</td><td>＋算力中心溫度迴路實例、PID 調參痛點</td></tr>
+<tr><td>Psychrometric Chart Fundamentals 焓濕圖</td><td>47–65</td><td>M2</td><td>＋資料中心加濕/除濕能耗分析</td></tr>
+<tr><td>Pneumatic Control Fundamentals 氣動控制</td><td>66–106</td><td>M3</td><td>＋既有大樓氣動系統延壽與 DDC 改裝策略</td></tr>
+<tr><td>Electric Control Fundamentals 電動控制</td><td>107–130</td><td>M3</td><td>＋MCC 啟停迴路、連鎖設計</td></tr>
+<tr><td>Electronic Control Fundamentals 電子控制</td><td>119–130</td><td>M3</td><td>＋感測器精度等級與校驗</td></tr>
+<tr><td>Microprocessor-Based/DDC Fundamentals</td><td>131–148</td><td>M4</td><td>＋最佳啟停、需量控制在算力中心之應用</td></tr>
+<tr><td>Indoor Air Quality Fundamentals</td><td>149–170</td><td>M6</td><td>＋CO₂ 外氣需求控制 DCV</td></tr>
+<tr><td>Smoke Management Fundamentals</td><td>171–182</td><td>M6</td><td>＋煙控驗收測試程序（Acceptance Testing）</td></tr>
+<tr><td>Building Management System Fundamentals</td><td>183–198</td><td>M5</td><td>＋IO 點表編製、圖控設計、BACnet 整合</td></tr>
+<tr><td>Air Handling System Control Applications</td><td>201–262</td><td>M7</td><td>＋外氣節能器在算力中心的免費冷卻</td></tr>
+<tr><td>Building Airflow System Control Applications</td><td>263–290</td><td>M8</td><td>＋靜壓感知器位置 2/3 法則驗證</td></tr>
+<tr><td>Chiller, Boiler &amp; Distribution System Control</td><td>291–404</td><td>M9</td><td>＋冰水主機群效能曲線、一次/二次側、區域供熱</td></tr>
+<tr><td>Individual Room Control Applications</td><td>395–424</td><td>M10</td><td>＋VAV Box 壓力無關控制驗證</td></tr>
+<tr><td>Valve Selection and Sizing</td><td>427–444</td><td>M11</td><td>＋閥權度 Valve Authority 與 Oversizing 痛點</td></tr>
+<tr><td>Damper Selection and Sizing</td><td>445–464</td><td>M11</td><td>＋風門洩漏等級與平行/對向葉片選用</td></tr>
+<tr><td>General Engineering Data</td><td>465–482</td><td>M11／附錄</td><td>＋電氣資料、單位換算速查</td></tr>
+<tr><td>（原書無，教案新增）</td><td>—</td><td>M12–M19</td><td>試運轉程序、交付文件、AI 算力中心/辦公大樓個案、產業應用、成本效益、進階實務</td></tr>
+</table>
+</section>
+<!-- ================= M1 ================= -->
+<section id="m1">
+<h2>模組 1｜自動控制基礎原理 Control Fundamentals</h2>
+<p class="lead">對應原書 pp.3–46。本章是全書之根：什麼是控制迴路、有哪些控制模式、程序動態如何影響控制品質。</p>
+<div class="fig"><img src="figures/ch1_hvac_building.png" alt="小型建築 HVAC 系統全貌"><div class="cap"><b>原文圖 0</b>（p.8）小型商業建築 HVAC 系統全貌：地下層設控制盤、鍋爐、泵浦與冰機；屋頂設冷卻水塔；各樓層分佈風管、風機、風門、盤管、過濾器、VAV 箱與出風口。<b>整門課程就是逐層拆解這張圖</b>——M7 講空調箱、M8 講風管、M9 講機房、M10 講末端、M5 講把它們連起來的 BMS。</div></div>
+<h3>1.1 控制迴路五大要素（工作原理）</h3>
+<p>一個完整的閉迴路控制包含：<b>受控變數</b>（Controlled Variable，如送風溫度）、<b>感測元件</b>（Sensor）、<b>控制器</b>（Controller，內含設定值 Setpoint 與控制演算法）、<b>最終控制元件</b>（Final Control Element，如閥門／風門）、<b>受控程序</b>（Process，如盤管加熱）。控制器比較「量測值」與「設定值」得到<b>偏差 Deviation</b>，再依演算法輸出操縱變數（Manipulated Variable，如蒸汽流量）。</p>
+<div class="fig"><img src="figures/ch1_control_loop.png" alt="典型控制迴路"><div class="cap"><b>原文圖 1</b>（p.7）典型控制迴路：熱水供應溫度 71°C 為控制點；戶外溫度 −15~15°C 經 Reset Schedule 將熱水設定值由 90°C 遞減至 55°C；控制器輸出驅動蒸汽閥 41% 開度。請學員在圖上指出 Sensor／Controller／Final Control Element／Process 四者位置。</div></div>
+<div class="mermaid">
+flowchart LR
+  SP["設定值 Setpoint<br>例：送風 13°C"] --> CMP(("比較器<br>ε = SP − PV"))
+  PV["量測值 PV<br>感測器回饋"] --> CMP
+  CMP --> CTL["控制器<br>PID 演算法"]
+  CTL --> FCE["最終控制元件<br>閥門／風門／VFD"]
+  FCE --> PRC["受控程序<br>盤管／風機／空間"]
+  PRC -->|"受控變數"| SEN["感測元件"]
+  SEN --> PV
+  D["負載擾動<br>外氣／人員／IT 負載"] --> PRC
+</div>
+
+<h3>1.2 閉迴路回饋 vs. 開迴路</h3>
+<div class="fig"><img src="figures/ch1_feedback_loop.png" alt="閉迴路回饋"><div class="cap"><b>原文圖 2</b>（p.16）閉迴路系統中的回饋：控制器持續比較輸出結果並修正——這是「自動」控制與手動控制的本質差異。</div></div>
+<table>
+<tr><th>項目</th><th>開迴路 Open Loop</th><th>閉迴路 Closed Loop</th></tr>
+<tr><td>回饋</td><td>無（如定時器控制路燈）</td><td>有（感測器持續回授）</td></tr>
+<tr><td>抗擾動能力</td><td>差，負載變化無法補償</td><td>佳，可自動修正</td></tr>
+<tr><td>穩定性風險</td><td>無振盪問題</td><td>參數不當會振盪（Hunting）</td></tr>
+<tr><td>典型應用</td><td>夜間 purge 定時排風</td><td>送風溫度、冰水溫度、靜壓控制</td></tr>
+</table>
+
+<h3>1.3 控制模式總解析（兩位置 → 浮動 → 比例 → PI → PID → EPID）</h3>
+<table>
+<tr><th>控制模式</th><th>動作特性</th><th>優點</th><th>缺點</th><th>典型應用</th></tr>
+<tr><td><b>二位置</b> Two-Position</td><td>全開／全關，有差動間隙 Differential</td><td>簡單便宜</td><td>溫度擺動、設備短循環</td><td>小型熱泵、排風機、家用溫控</td></tr>
+<tr><td><b>時間比例</b> Time Proportioning</td><td>固定週期內改變 ON/OFF 時間比</td><td>平均輸出可調</td><td>仍為開關動作，接點磨耗</td><td>電熱器分段</td></tr>
+<tr><td><b>步進</b> Step Control</td><td>多段開關依序投入</td><td>配合多台設備</td><td>段間仍有落差</td><td>多台往復式冰機、電熱段</td></tr>
+<tr><td><b>浮動</b> Floating</td><td>控制器驅動馬達正/反轉，停在誤差消除處</td><td>無固定偏移</td><td>響應慢、需三線式致動器</td><td>風門、三通閥（Series 60）</td></tr>
+<tr><td><b>比例 P</b></td><td>輸出與偏差成正比（比例帶 PB）</td><td>快速穩定</td><td>必有殘差 Offset</td><td>壓力、液位</td></tr>
+<tr><td><b>比例積分 PI</b></td><td>P 加上積分消除殘差（Reset）</td><td>無穩態誤差</td><td>積分過強會振盪、Windup</td><td>送風溫度、冰水溫度（HVAC 主力）</td></tr>
+<tr><td><b>PID</b></td><td>再加微分預測變化率（Rate）</td><td>響應快、超調小</td><td>雜訊放大、調參困難</td><td>精密空調、實驗室壓力</td></tr>
+<tr><td><b>EPID</b>（Honeywell 強化型）</td><td>PID＋啟動輸出值＋誤差爬升時間</td><td>啟動平順、易調</td><td>僅特定控制器支援</td><td>Excel 系列 DDC 控制器</td></tr>
+</table>
+<div class="fig"><img src="figures/ch1_p_pi_pid.png" alt="P、PI、PID 響應比較"><div class="cap"><b>原文圖 3</b>（p.25）比例、比例積分、比例積分微分控制對階梯負載變化之響應比較：P 有殘差；PI 消除殘差但有超調；PID 收斂最快且超調最小。試運轉驗證時可用此圖比對實測趨勢曲線形狀。</div></div>
+<div class="callout key">比例帶（Proportional Band, PB）與增益：PB% = 100/K。PB 越小→增益越大→響應快但易振盪。HVAC 經驗起始值：溫度迴路 PB ≈ 8–15°C，積分時間 Ti ≈ 5–15 min；算力中心 CRAH 回風溫度迴路熱容量小，PB 可縮至 3–5°C 但須加長 Ti 防振盪。</div>
+
+<h3>1.4 Reset 補償控制（外氣重置）</h3>
+<div class="fig"><img src="figures/ch1_reset_loop.png" alt="外氣重置迴路"><div class="cap"><b>原文圖 4</b>（p.23）送風溫度控制迴路加外氣重置：外氣 15°C 時送風設定 13°C，外氣 −18°C 時重置至 27°C——以「天氣越冷、送風越暖」的預設邏輯降低區域過冷/過熱。</div></div>
+<p>Reset 是 HVAC 節能的第一支柱：<b>熱水供水溫度隨外氣重置</b>、<b>冰水供水溫度隨負載重置</b>、<b>風管靜壓隨 VAV 開度重置</b>。每一條 Reset Schedule 都必須在交付文件中以表格形式寫明（上限/下限/斜率），並在 FPT 時以模擬外氣溫度驗證兩個端點與中間點。</p>
+
+<h3>1.5 感測元件與致動器（IO 硬體基礎）</h3>
+<div class="two">
+<div class="fig"><img src="figures/ch1_bimetal_sensor.png" alt="雙金屬感測元件"><div class="cap"><b>原文圖 5</b>（p.30）捲繞式雙金屬感溫元件：兩種膨脹係數不同的金屬貼合，溫度變化產生機械位移——最原始的「類比感測器」。</div></div>
+<div class="fig"><img src="figures/ch1_actuators.png" alt="氣動與電動致動器"><div class="cap"><b>原文圖 6</b>（p.34）典型氣動閥致動器、氣動風門致動器與電動風門致動器：彈簧復位（Fail-Safe）方向是試運轉斷電測試的驗證重點。</div></div>
+</div>
+<table>
+<tr><th>感測對象</th><th>元件原理</th><th>典型輸出</th><th>精度（工程實務）</th></tr>
+<tr><td>溫度</td><td>雙金屬／液漲式／RTD(Pt1000)／NTC／熱電偶</td><td>機械位移／Ω／mV／4–20 mA</td><td>RTD ±0.1~0.3°C；NTC ±0.2°C；溫控器 ±1°C</td></tr>
+<tr><td>濕度</td><td>尼龍薄膜／電容式高分子</td><td>位移／0–10 V／4–20 mA</td><td>±2~3%RH（年度漂移需校驗）</td></tr>
+<tr><td>壓力</td><td>波登管／電容式／壓阻式</td><td>位移／4–20 mA</td><td>±0.5% FS（風管靜壓用 ±1% 低量程型）</td></tr>
+<tr><td>流量</td><td>皮托管／平均風速管／超音波／電磁</td><td>差壓／脈波／4–20 mA</td><td>差壓式 ±2~5%（安裝直管段決定成敗）</td></tr>
+<tr><td>運轉證明</td><td>電流感知器 CT／風壓開關／槳葉流量開關</td><td>乾接點 DI</td><td>—（狀態而非量測）</td></tr>
+</table>
+
+<h3>1.6 程序動態：熱容量、死區時間與偏移</h3>
+<p>原書 pp.27–29 指出控制品質的三大敵人：<b>供應側容量</b>（Supply Capacitance，盤管水容量）、<b>需求側容量</b>（Demand Capacitance，空間熱質量）、<b>死區時間</b>（Dead Time，感測器位置與流動延遲）。算力中心通道內風速 5–8 m/s，溫度感測器若裝在 CRAH 出風口 1 m 內，死區時間僅 0.2 s，可用較快 PI；辦公大樓大空間熱質量大（時間常數 20–40 min），積分時間必須拉長，否則產生日夜溫度循環擺盪。</p>
+
+<h3>1.7 測試方法與驗證重點（本章對應）</h3>
+<ol class="steps">
+<li><b>開迴路階梯測試</b>：手動將閥門由 0%→50%→100%，記錄受控變數響應曲線，求程序增益 Kp 與時間常數 τ，作為 PID 起始參數。</li>
+<li><b>閉迴路設定值擾動測試</b>：改變設定值 ±2°C，觀察收斂時間與超調量；驗收標準建議：15 min 內進入 ±0.5°C 且超調 &lt; 1.5°C。</li>
+<li><b>Reset Schedule 三點驗證</b>：模擬外氣低點/中點/高點，核對被重置之設定值。</li>
+<li><b>感測器比對</b>：以手持式標準器（精度至少高被測物 3 倍）在運轉點比對，溫度誤差 &gt; 0.5°C 即校正或更換。</li>
+<li><b>致動器行程與失效位置</b>：0–100% 行程線性度、斷電/斷訊號復位方向（Fail-Open/Fail-Close）與圖說一致性。</li>
+</ol>
+<div class="callout pain">常見痛點：① PID 直接用出廠預設值上線，冬季振盪、夏季遲緩；② 感測器裝在盤管下游混合不均處，量測值永遠不代表空間；③ 浮動控制馬達行程時間（Timing）未依風門負載調整，導致過衝來回。三者都會在 M12 的趨勢記錄驗證中現形。</div>
+<div class="callout review">① 畫出閉迴路五要素並各舉一算力中心實例。② 為何 PI 能消除 Offset？積分飽和（Windup）如何防範？③ PB 與增益 K 的關係？④ 外氣 −10°C 時，按原書 Reset Schedule（外氣 15°C→熱水 55°C；−15°C→90°C），熱水設定值為何？（答：約 84.2°C，線性內插）</div>
+</section>
+
+<!-- ================= M2 ================= -->
+<section id="m2">
+<h2>模組 2｜濕空氣與焓濕圖 Psychrometric Fundamentals</h2>
+<p class="lead">對應原書 pp.47–65。焓濕圖是空調控制的「地圖」——所有 AHU 控制程序（混合、加熱、冷卻、加濕、除濕、節能器）都能畫在圖上驗算。試運轉時，焓濕圖是把「量測數據」轉成「性能結論」的工具。</p>
+<h3>2.1 焓濕圖七大狀態量</h3>
+<p>乾球溫度 DB、濕球溫度 WB、露點溫度 DP、相對濕度 RH、絕對濕度 W（kg/kg 乾空氣）、比焓 h（kJ/kg）、比容 v（m³/kg）。<b>任兩個獨立量可決定狀態點</b>，其餘由圖讀出。</p>
+<div class="fig"><img src="figures/ch2_ashrae_chart.png" alt="ASHRAE 焓濕圖"><div class="cap"><b>原文圖 7</b>（p.54）ASHRAE Psychrometric Chart No.1（海平面、正常溫度範圍 SI 版）。教學演練：在圖上標出辦公大樓夏季室內設計點 24°C/50%RH，讀出 h≈48 kJ/kg、W≈9.3 g/kg。</div></div>
+<h3>2.2 八大空調過程在圖上的路徑</h3>
+<table>
+<tr><th>過程</th><th>圖上路徑</th><th>設備</th><th>控制手段</th></tr>
+<tr><td>顯熱加熱</td><td>水平向右（W 不變）</td><td>熱水/蒸汽盤管</td><td>閥門比例控制</td></tr>
+<tr><td>顯熱冷卻</td><td>水平向左（未達飽和）</td><td>冰水盤管（乾盤管）</td><td>閥門比例控制</td></tr>
+<tr><td>冷卻除濕</td><td>向左下（沿飽和線折彎）</td><td>冷盤管（露點以下）</td><td>閥門＋旁通</td></tr>
+<tr><td>加濕（蒸汽）</td><td>近乎垂直向上（等溫）</td><td>蒸汽加濕器</td><td>比例閥</td></tr>
+<tr><td>加濕（水霧/水洗）</td><td>沿等濕球線左上（絕熱）</td><td>噴霧/水洗室</td><td>泵浦啟停/比例</td></tr>
+<tr><td>混合</td><td>兩狀態點連線上，依質量比分割</td><td>混風風門</td><td>風門比例</td></tr>
+<tr><td>風機溫升</td><td>微幅右上（ΔT≈0.5–1.5°C）</td><td>風機</td><td>—（計算時不可漏）</td></tr>
+<tr><td>化學除濕</td><td>向右下（等焓偏下）</td><td>吸附轉輪</td><td>轉輪啟停/旁通</td></tr>
+</table>
+<div class="fig"><img src="figures/ch2_mixing_example.png" alt="混風計算例"><div class="cap"><b>原文圖 8</b>（p.42）外氣混合例題：4.72 m³/s 風量、25% 外氣，RA 24°C 與 OA −15°C 混合得 MAT = 14.25°C。公式：MAT = (RA×0.75)+(OA×0.25)。此計算式是冬季預熱盤管容量校核與混風風門最小開度驗證的基礎。</div></div>
+<h3>2.3 工程應用：為何算力中心顧問必懂焓濕圖</h3>
+<ul>
+<li><b>節能器決策</b>：乾球節能器比較 OA 與 RA 溫度；焓值節能器（Enthalpy Economizer）比較比焓 h。當 OA 焓值 &lt; RA 焓值，引入 100% 外氣免費冷卻。算力中心 24×7 運轉，焓值節能器在過渡季可讓冰水主機停機，直接反映在 PUE。</li>
+<li><b>加濕/除濕能耗</b>：資料中心維持 40–60%RH（ASHRAE TC9.9 建議露點 5.5–15°C）。冬季外氣 −5°C/80%RH 僅含 2 g/kg 水分，加熱到 24°C 後 RH 只剩 10%——必須加濕；加濕量與電費都由焓濕圖算出。</li>
+<li><b>結露風險</b>：冷通道地板下送風若低於室內露點即結露。試運轉時以焓濕圖核算：室內 24°C/50%RH → 露點 13°C，故送風不得低於 14°C（留 1°C 餘裕）。</li>
+</ul>
+<h3>2.4 測試與驗證重點</h3>
+<ul class="chk">
+<li>以經校驗之乾濕球計或數位焓濕計量測 AHU 進/出風狀態，描點於焓濕圖，驗證盤管處理線斜率與設計相符。</li>
+<li>混風點驗證：量測 OA/RA/MA 三點溫度，代入混合公式反算實際外氣比，與風門開度回授交叉核對（誤差 &gt;10% 表示風門特性或洩漏異常）。</li>
+<li>盤管出風露點（Apparatus Dew Point）推估：除濕工況下出風點應落在飽和線 90–95% 繞流因數線上；偏離過大表示盤管髒堵或水量不足。</li>
+<li>焓值節能器切換點驗證：模擬 OA 焓值跨越設定值（如 47 kJ/kg），確認風門與冰水閥聯動切換無振盪、無死區。</li>
+</ul>
+<div class="callout pain">痛點：焓值節能器需要<b>兩支高精度濕度感測器</b>（OA 與 RA），濕度感測器每年漂移 2–5%RH，兩年後節能器決策已不可信——許多大樓因此把焓值節能器降級為乾球節能器甚至停用。對策：納入年度校驗計畫，或改用「乾球溫度＋露點上限」混合決策（ASHRAE 90.1 允許）。</div>
+<div class="callout review">① 24°C/50%RH 的露點約多少？（13°C）② 外氣 30°C/70% 與回風 24°C/50% 各 50% 混合，混合點在哪？（兩點連線中點，h 取平均）③ 為何水洗加濕過程沿等濕球線？（絕熱蒸發，顯熱轉潛熱）④ 算力中心送風低於露點會發生什麼？</div>
+</section>
+<!-- ================= M3 ================= -->
+<section id="m3">
+<h2>模組 3｜控制技術世代：氣動 → 電動 → 電子控制</h2>
+<p class="lead">對應原書氣動 pp.66–106、電動 pp.107–130、電子 pp.119–130。理解舊技術不是考古——台灣與全球大量既有建築仍在運轉氣動系統，改裝 DDC 時必須保留或介接這些硬體；而電動迴路（Series 40/60/90）至今仍是小型設備與連鎖迴路的骨幹。</p>
+
+<h3>3.1 氣動控制 Pneumatic Control</h3>
+<h4>工作原理</h4>
+<p>氣動系統以 <b>140 kPa（20 psi）潔淨乾燥壓縮空氣</b>為能源，控制訊號為 <b>21–103 kPa（3–15 psi）</b>。核心放大元件是<b>噴嘴-擋板</b>（Nozzle-Flapper）：擋板與噴嘴間隙微小變化 → 背壓大幅變化 → 經中繼閥（Relay）放大氣量驅動膜片致動器。感測元件（雙金屬、液漲球）直接推動擋板，形成「無電子」的比例控制器。</p>
+<div class="two">
+<div class="fig"><img src="figures/ch3_pneumatic_system.png" alt="基本氣動系統與空壓供應"><div class="cap"><b>原文圖 9</b>（p.61）基本氣動控制系統與壓縮空氣供應系統：空壓機→乾燥機→過濾→減壓至 140 kPa 主氣源。氣源品質（露點、油、塵）決定系統壽命。</div></div>
+<div class="fig"><img src="figures/ch3_nozzle_flapper.png" alt="噴嘴擋板機構"><div class="cap"><b>原文圖 10</b>（p.62）噴嘴-擋板加節流孔：間隙每變化 0.025 mm，背壓可在全範圍擺動——氣動控制的「電晶體」。</div></div>
+</div>
+<div class="two">
+<div class="fig"><img src="figures/ch3_pneumatic_actuator.png" alt="氣動致動器"><div class="cap"><b>原文圖 11</b>（p.74）氣動致動器與閥/風門組合：彈簧範圍（如 28–90 kPa、55–83 kPa）實現「訊號分段順序控制」——同一訊號先開熱水閥、再開新風門，是氣動時代的順序控制精髓，DDC 時代改以軟體分段重現。</div></div>
+<div class="fig"><img src="figures/ch3_valve_bodies.png" alt="單座閥"><div class="cap"><b>原文圖 12</b>（p.75）單座閥構造：單座關斷緊密但壓差推力大；雙座推力平衡但關不嚴。選用時在「關斷能力」與「致動器推力」間取捨。</div></div>
+</div>
+<h4>氣動中繼元件（Relay）功能速查</h4>
+<table>
+<tr><th>Relay 類型</th><th>功能</th><th>典型應用</th></tr>
+<tr><td>切換 Switching</td><td>訊號達設定值切換氣路</td><td>日/夜模式切換</td></tr>
+<tr><td>快動 Snap-acting</td><td>無延遲硬切換</td><td>安全連鎖</td></tr>
+<tr><td>鎖定 Lockout</td><td>保持狀態直到復歸</td><td>節能器高溫鎖定</td></tr>
+<tr><td>平均 Averaging</td><td>多訊號取平均</td><td>多區溫度平均控制</td></tr>
+<tr><td>比率 Ratio</td><td>輸出=輸入×比率</td><td>雙風門順序比例</td></tr>
+<tr><td>反轉 Reversing</td><td>輸出隨輸入遞減</td><td>夏/冬模式轉換</td></tr>
+<tr><td>定位 Positive-positioning</td><td>閥位回饋閉迴路</td><td>高壓差閥精確定位</td></tr>
+<tr><td>E/P、P/E</td><td>電-氣／氣-電轉換</td><td><b>DDC 改裝保留氣動閥的介面</b></td></tr>
+</table>
+<div class="callout tip">改裝實務：既有氣動大樓改 DDC 時，保留狀況良好的氣動閥與風門致動器，僅加裝 E/P 轉換器與 DDC 控制器，可節省 40–60% 改裝成本；但須同步評估空壓站維護成本——若空壓機老舊、管路洩漏嚴重，全面電動化長期更划算（詳 M17 成本分析）。</div>
+
+<h3>3.2 電動控制 Electric Control（Series 40/60/80/90）</h3>
+<h4>工作原理與迴路解析</h4>
+<table>
+<tr><th>系列</th><th>控制模式</th><th>迴路特徵</th><th>應用</th></tr>
+<tr><td>Series 40</td><td>二位置</td><td>SPST 線電壓直接切換</td><td>小型風機、電熱、電磁閥</td></tr>
+<tr><td>Series 80</td><td>二位置（低電壓）</td><td>24 V 控制線電壓負載</td><td>屋頂機、單元加熱器</td></tr>
+<tr><td>Series 60</td><td>浮動</td><td>SPDT 控制器驅動可逆馬達正反轉</td><td>風門、三通閥</td></tr>
+<tr><td>Series 90</td><td>比例</td><td>惠斯登電橋：135 Ω 滑線電阻平衡驅動</td><td>比例閥、比例風門</td></tr>
+</table>
+<div class="two">
+<div class="fig"><img src="figures/ch4_series90.png" alt="Series 90 電橋迴路"><div class="cap"><b>原文圖 13</b>（p.107）Series 90 致動器電橋迴路：感測滑線與致動器回授滑線構成電橋，不平衡時馬達旋轉至平衡——用類比電路實現「位置伺服」。</div></div>
+<div class="fig"><img src="figures/ch4_startstop.png" alt="啟停控制迴路"><div class="cap"><b>原文圖 14</b>（p.115）瞬動按鈕啟停迴路與 Hand-Off-Auto 迴路：維持接點（Seal-in）是自保持核心；HOA 三位置開關是試運轉時「手動旁路驗證」與「自動恢復」的標準介面。</div></div>
+</div>
+<div class="callout key">連鎖（Interlock）設計三原則：① <b>安全連鎖硬體化</b>——火警、煙偵測、凍結保護必須硬接線切斷，不可只經由 DDC 軟體；② <b>啟動順序連鎖</b>——送風機未證明運轉，不得投入加熱/加濕；③ <b>故障復歸方向</b>——所有連鎖失效時設備停於安全態（風機停、新風門關、熱水閥開啟防凍）。</div>
+
+<h3>3.3 電子控制 Electronic Control</h3>
+<div class="two">
+<div class="fig"><img src="figures/ch5_electronic_system.png" alt="電子控制系統"><div class="cap"><b>原文圖 15</b>（p.122）基本電子控制系統：感測器（遠端佈線受線阻影響，原書特別標示 Lead Wire Length 補償）→ 電子控制器 → 致動器。</div></div>
+<div class="fig"><img src="figures/ch5_rtd.png" alt="RTD 感測器"><div class="cap"><b>原文圖 16</b>（p.124）白金 RTD 元件與電阻-溫度特性：Pt100/Pt1000 在 0°C 為 100/1000 Ω，α≈0.00385 Ω/Ω/°C，線性度佳、長期穩定，是 BMS 溫度量測主流。</div></div>
+</div>
+<h4>電子感測器選型對照（IO 硬體核心）</h4>
+<table>
+<tr><th>元件</th><th>原理</th><th>精度</th><th>適用</th><th>注意事項</th></tr>
+<tr><td>Pt100/Pt1000 RTD</td><td>金屬電阻隨溫度線性變化</td><td>±0.1–0.3°C</td><td>冰水/熱水溫度、精控場所</td><td>需三線式補償線阻；Pt1000 抗線阻較佳</td></tr>
+<tr><td>NTC 熱敏電阻</td><td>半導體電阻負溫度係數</td><td>±0.2°C（窄範圍）</td><td>室溫、風管溫度</td><td>非線性，需控制器查表</td></tr>
+<tr><td>熱電偶</td><td>異金屬接點熱電勢</td><td>±0.5–1°C</td><td>高溫（鍋爐煙道）</td><td>需冷接點補償</td></tr>
+<tr><td>固態 IC 感測器</td><td>PN 接面壓降</td><td>±0.5°C</td><td>小型 DDC 感測器</td><td>範圍窄（−40~120°C）</td></tr>
+<tr><td>電容式濕度</td><td>高分子薄膜介電係數隨 RH 變化</td><td>±2%RH</td><td>室內、風管</td><td>年漂移 1–2%，須校驗</td></tr>
+<tr><td>電容/壓阻壓力</td><td>膜片位移改變電容/電阻</td><td>±0.5%FS</td><td>風管靜壓、水壓差</td><td>量程選實際值 1.5–2 倍</td></tr>
+</table>
+<h3>3.4 測試與驗證重點（本章對應）</h3>
+<ul class="chk">
+<li>氣動：主氣源壓力、露點（&lt;−18°C 壓力露點）、各支管減壓閥設定、E/P 轉換器 21–103 kPa 線性度（5 點校驗）。</li>
+<li>電動：Series 60 浮動馬達全程行程時間量測（常見 90–150 s）；Series 90 電橋平衡測試——手動偏移感測滑線，致動器應平滑跟隨無抖動。</li>
+<li>電子：RTD 以精密電阻箱或乾井爐三點校驗（0/50/100°C）；4–20 mA 迴路以過程校驗儀注入模擬訊號驗證 DDC 顯示值。</li>
+<li>安全連鎖：逐項「拔訊號」測試——拔凍結保護接點，風機必須停、新風門關、熱水閥全開，且與 DDC 電源狀態無關。</li>
+</ul>
+<div class="callout review">① 噴嘴-擋板如何放大訊號？② 為何氣動彈簧範圍分段能做順序控制？③ Series 60 與 Series 90 控制模式差異？④ RTD 為何用三線式？⑤ 安全連鎖為何必須硬接線？</div>
+</section>
+
+<!-- ================= M4 ================= -->
+<section id="m4">
+<h2>模組 4｜DDC 微電腦控制 Microprocessor-Based/DDC Fundamentals</h2>
+<p class="lead">對應原書 pp.131–148。DDC（Direct Digital Control）是現代樓宇自控的核心：微處理器直接讀取感測器、執行控制程式、輸出驅動設備。原書 1997 年版描述的架構至今仍是主流，僅通訊協定進化為 BACnet/IP、Modbus TCP。</p>
+<h3>4.1 DDC 架構與控制器類型</h3>
+<div class="two">
+<div class="fig"><img src="figures/ch5_ddc_evolution.png" alt="分散式數位控制演進"><div class="cap"><b>原文圖 17</b>（p.134）分散式數位控制的演進與數位控制器的類比功能：中央主機集中控制 → 分散式現場控制器。分散式架構的價值：單一控制器故障只影響局部，且現場迴路不依賴通訊網路。</div></div>
+<div class="fig"><img src="figures/ch5_ddc_controller.png" alt="微處理器控制器組態"><div class="cap"><b>原文圖 18</b>（p.135）微處理器控制器組態：AI/AO/DI/DO 經端子台進入 I/O 模組，CPU 執行控制程式，通訊埠上接管理層。</div></div>
+</div>
+<div class="fig"><img src="figures/ch5_zone_system.png" alt="區域層與系統層控制器"><div class="cap"><b>原文圖 19</b>（p.136）區域層（Zone-Level，VAV Box、FCU 專用小點數控制器）與系統層（System-Level，AHU、冰水機房用大點數可程式控制器）的分層架構——今日對應：Application Specific Controller vs. Plant Controller。</div></div>
+<h4>DDC 相對氣動/類比的優勢（原書 pp.134 整理＋實務註解）</h4>
+<table>
+<tr><th>優勢</th><th>說明</th><th>算力中心視角</th></tr>
+<tr><td>精確與可重複</td><td>數位計算無漂移，Reset Schedule 精準執行</td><td>冷通道溫度 ±0.5°C 達成</td></tr>
+<tr><td>複雜順序容易實現</td><td>節能器、台數控制、最佳啟停用軟體完成</td><td>多組 CRAH 輪值與 N+1 自動切換</td></tr>
+<tr><td>自適應參數</td><td>可依季節/負載切換 PID 參數組</td><td>IT 負載 30%→90% 全範圍穩定</td></tr>
+<tr><td>資料記錄</td><td>趨勢、警報、運轉時數自動累計</td><td>PUE 計算與 SLA 佐證資料</td></tr>
+<tr><td>遠端監控</td><td>經 BMS 集中監看</td><td>DCIM 整合（Modbus/BACnet/SNMP）</td></tr>
+</table>
+<h3>4.2 控制器軟體與程式開發</h3>
+<p>原書將控制器軟體分為：<b>作業系統層</b>（掃描 I/O、通訊、時序）與<b>應用程式層</b>（控制邏輯）。程式開發手段：參數設定型（固定程式填參數）、圖形化功能方塊（FBD）、行式語言（Line Programming）。</p>
+<div class="fig"><img src="figures/ch5_flowchart.png" alt="控制程式流程圖"><div class="cap"><b>原文圖 20</b>（p.147）控制程式開發流程圖範例：先定義功能 → 流程圖 → 程式 → 模擬測試 → 現場下載。此「先模擬後上線」流程是試運轉事故預防的第一道防線。</div></div>
+<h3>4.3 能源管理功能（原書經典演算法）</h3>
+<div class="two">
+<div class="fig"><img src="figures/ch5_optimum_start.png" alt="最佳啟動"><div class="cap"><b>原文圖 21</b>（p.138）最佳啟動 Optimum Start：依室外溫度與空間溫度歷史斜率，推算最遲啟動時刻使佔用時間準時達標——比固定 06:00 啟動節能 10–15%。</div></div>
+<div class="fig"><img src="figures/ch5_enthalpy_ladder.png" alt="焓值決策梯"><div class="cap"><b>原文圖 22</b>（p.139）焓值決策梯 Enthalpy Decision Ladder：依 OA 溫濕度分區決定「機械冷凍／部分節能器／全節能器」——算力中心免費冷卻邏輯的原型。</div></div>
+</div>
+<table>
+<tr><th>功能</th><th>原理</th><th>節能潛力</th><th>驗證方法</th></tr>
+<tr><td>最佳啟停 Optimum Start/Stop</td><td>學習建築熱惰性，最遲啟動/最早停機</td><td>5–15%</td><td>連續 5 日趨勢：佔用時刻 ±10 min 達標</td></tr>
+<tr><td>夜間循環 Night Cycle</td><td>夜間溫度漂移超限才短時運轉</td><td>3–8%</td><td>冬季夜間趨勢驗證啟停次數</td></tr>
+<tr><td>焓值/乾球節能器</td><td>OA 條件佳時以風代冰</td><td>10–30%（氣候相關）</td><td>模擬 OA 條件跨越切換點</td></tr>
+<tr><td>需量限制 Demand Limiting</td><td>預測 15 min 需量超限即卸載</td><td>契約容量罰款歸零</td><td>模擬需量訊號驗證卸載順序</td></tr>
+<tr><td>零能區 Zero Energy Band</td><td>冷熱都不需的死區內全部關閉</td><td>消除冷熱互搏</td><td>死區內趨勢：冷熱閥皆 0%</td></tr>
+<tr><td>負載重置 Load Reset</td><td>以最不利迴路需求重置供水/風壓設定</td><td>10–25% 輸送能耗</td><td>詳 M8/M9 Trim &amp; Respond</td></tr>
+</table>
+<h3>4.4 測試與驗證重點</h3>
+<ul class="chk">
+<li>程式離線模擬：以模擬器注入極端輸入（感測器斷線=−40°C、超量程），程式必須進入預定安全態並發警報。</li>
+<li>掃描週期驗證：安全相關迴路掃描 ≤1 s，溫度迴路 ≤5 s；以趨勢時間戳檢查。</li>
+<li>斷電回復測試：控制器斷電 5 min 復電後，參數不丟失、設備按預定順序重啟（尤是算力中心 CRAH 不得同時全啟動造成湧浪）。</li>
+<li>通訊失效降級：拔掉網路線，現場控制器必須<b>自主維持最後安全控制策略</b>（Standalone Capability）——這是 DDC 與純雲端控制的本質區別。</li>
+</ul>
+<div class="callout pain">痛點：程式「能跑」不等於「正確」。常見缺失——① 無感測器失效偵測，斷線值 −40°C 被當真值全開冰水閥；② 無警報延遲，風機啟動瞬間低靜壓假警報洗版；③ 最佳啟停學習參數從未初始化，永遠用預設斜率。全部可在離線模擬階段攔截。</div>
+<div class="callout review">① DDC 的「Direct」何義？（微處理器直接控制設備，不經氣動/類比控制器）② Standalone 能力為何對算力中心是剛需？③ 最佳啟動需要哪兩類歷史資料？④ 焓值節能器與乾球節能器的決策變數差異？</div>
+</section>
+
+<!-- ================= M5 ================= -->
+<section id="m5">
+<h2>模組 5｜BMS 建築管理系統與 IO 硬體點表</h2>
+<p class="lead">對應原書 pp.183–198。BMS 是所有控制迴路的「大腦中樞」：集中監控、圖控顯示、警報管理、趨勢記錄、能源分析。本章同時建立 <b>IO 硬體完整知識</b>——點表是自控工程最重要的單一文件。</p>
+<h3>5.1 BMS 階層架構</h3>
+<div class="fig"><img src="figures/ch9_bms_hierarchy.png" alt="BMS 階層架構"><div class="cap"><b>原文圖 23</b>（p.186）BMS 階層式架構：管理層（工作站/伺服器）→ 自動化層（系統控制器/網路控制器）→ 現場層（區域控制器/感測致動器）。今日對應：Management（BACnet/IP, Web）→ Automation（BACnet/IP 或 MS/TP 路由器）→ Field（BACnet MS/TP, Modbus RTU）。</div></div>
+<div class="fig"><img src="figures/ch9_wiring.png" alt="通訊佈線"><div class="cap"><b>原文圖 24</b>（p.188）串列匯流排（Bus/Daisy-chain）與星狀（Star）佈線組態：RS-485 匯流排須注意終端電阻、極性、段長 ≤1200 m、每段 ≤32 節點（加 Repeater 擴充）。</div></div>
+<h3>5.2 IO 硬體四大類型完整解析</h3>
+<table>
+<tr><th>類型</th><th>訊號形式</th><th>典型設備</th><th>接線/調試要點</th></tr>
+<tr><td><b>AI</b> 類比輸入</td><td>4–20 mA、0–10 V、Pt1000、NTC 10 kΩ</td><td>溫度/濕度/壓力/流量/CO₂ 傳送器</td><td>電流訊號抗干擾優於電壓；遮罩線單端接地；兩線式傳送器注意迴路供電</td></tr>
+<tr><td><b>AO</b> 類比輸出</td><td>4–20 mA、0–10 V</td><td>比例閥致動器、VFD 速度命令、E/P</td><td>負載阻抗匹配（電流輸出 ≥750 Ω 驅動力）；與 VFD 隔離干擾</td></tr>
+<tr><td><b>DI</b> 數位輸入</td><td>乾接點、24 VAC/VDC 濕接點</td><td>運轉/故障狀態、壓差開關、凍結保護、水流開關</td><td>明確定義 NO/NC 與「正常態」；安全迴路用 NC（斷線即警報）</td></tr>
+<tr><td><b>DO</b> 數位輸出</td><td>Relay 接點、Triac 24 VAC</td><td>風機/泵浦啟停、電磁閥、風門開關</td><td>Relay 接點容量 vs. 負載（馬達需經 MCC 輔助接點）；Triac 僅適合小負載</td></tr>
+<tr><td><b>脈波輸入</b></td><td>乾接點/光隔離脈波</td><td>電錶、水錶、熱量錶</td><td>脈波常數 kWh/pulse 寫入點表；累計值斷電保存</td></tr>
+<tr><td><b>通訊點</b></td><td>BACnet、Modbus、SNMP、OPC</td><td>冰水主機、VFD、UPS、發電機、精密空調</td><td>點位對照表（Point Mapping）須逐點驗證 R/W 屬性</td></tr>
+</table>
+<h3>5.3 點表（I/O Summary / Points List）編製——原書經典範例</h3>
+<div class="fig"><img src="figures/ch9_io_summary.png" alt="I/O 總表"><div class="cap"><b>原文圖 25</b>（p.194）完成的典型 I/O 總表（以冰機房為例）：橫軸為點型（DI: 輔助接點/差壓/低溫警報/煙感/流量開關/電流感知；AI: 壓力/溫度/濕度/露點/CT/差壓；DO: 啟停/開關/高低/自動；AO: 定位/轉速/類比命令）與軟體功能（顯示、BTU、P/PI/PID、浮動、警報、煙控、設定調整、運轉時數、圖形滲透、最佳啟停、焓值切換、需量限制、零能區、夜間循環、負載重置）。<b>此表同時是設計文件、採購依據、配線依據與點對點測試母表。</b></div></div>
+<div class="callout key">點表編製七欄鐵則（教案補強）：① 點位代碼（如 AHU-01-SAT）；② 點型與訊號規格（AI/4–20 mA）；③ 設備與安裝位置；④ 量程與工程單位；⑤ 警報限值與延遲；⑥ 趨勢記錄週期；⑦ 控制迴路歸屬。缺任何一欄，試運轉階段必定補文件、補測點、補費用。</div>
+<h3>5.4 圖控設計與系統功能</h3>
+<div class="two">
+<div class="fig"><img src="figures/ch9_graphic_sketch.png" alt="圖控草圖"><div class="cap"><b>原文圖 26</b>（p.193）依操作程序（Sequence）繪製的圖控草圖：圖控不是美工，而是 SOO 的視覺化——每個動態數值都應對應點表中的一點。</div></div>
+<div>
+<h4>BMS 系統功能（原書 pp.189–196）</h4>
+<ul>
+<li>監控與警報：分級（緊急/重要/提示）、延遲、連動推播</li>
+<li>趨勢記錄 Trend Log：試運轉與能耗分析的生命線</li>
+<li>排程：日/週/年/例外日曆</li>
+<li>圖形滲透 Graphic Penetration：由全區→樓層→設備逐層鑽取</li>
+<li>能源管理：需量、累計、成本分攤</li>
+<li>系統整合：消防、門禁、CCTV、照明（原書 pp.196 之 Integration）</li>
+</ul>
+</div>
+</div>
+<h3>5.5 測試與驗證重點</h3>
+<ul class="chk">
+<li>點對點測試（P2P）：依點表逐點執行——DI 短接/開路、AI 注入 4/12/20 mA 三點、AO 命令 0/50/100%、DO 強制 ON/OFF，回控端顯示與現場動作雙向確認，<b>100% 覆蓋、簽認存證</b>。</li>
+<li>通訊點：逐點比對數值與設備本體顯示（如主機面板 vs. BMS 畫面），驗證寫入權限分級。</li>
+<li>警報路由：觸發各級警報，驗證值班室、Email、簡訊/LINE 推播到達時間 &lt; 60 s。</li>
+<li>趨勢記錄：抽驗 10% 關鍵點 72 hr 連續記錄無斷點（Gap）。</li>
+</ul>
+<div class="callout pain">痛點：點表「設計版」與「竣工版」不一致——現場追加的點未回寫，導致保固期維修查無點位。對策：P2P 表即為點表驗收版，任何變更走紅線圖流程，竣工時以 P2P 簽認表反推更新點表。</div>
+<div class="callout review">① 4–20 mA 相比 0–10 V 的兩個優點？② 安全相關 DI 為何用 NC 接點？③ 點表七欄各為何？④ RS-485 匯流排三個佈線限制？</div>
+</section>
+
+<!-- ================= M6 ================= -->
+<section id="m6">
+<h2>模組 6｜IAQ 室內空氣品質與煙控管理</h2>
+<p class="lead">對應原書 IAQ pp.149–170、煙控 pp.171–182。IAQ 關乎健康與法規（台灣 IAQ 管理法），煙控關乎生命安全且是<b>唯一需要法定驗收測試</b>的樓宇控制子系統。</p>
+<h3>6.1 IAQ 關切項目與控制對策</h3>
+<table>
+<tr><th>污染物</th><th>來源</th><th>控制對策</th><th>監測點</th></tr>
+<tr><td>CO₂</td><td>人員呼吸</td><td>需求控制通風 DCV：CO₂ &gt; 800–1000 ppm 增加外氣</td><td>回風管/人員密集區</td></tr>
+<tr><td>微粒 PM</td><td>室外、內部產生</td><td>過濾等級提升（MERV 13+／HEPA）</td><td>PM2.5 感測器</td></tr>
+<tr><td>VOC/甲醛</td><td>建材、家具</td><td>新裝修排氣、材料管制</td><td>TVOC 感測器</td></tr>
+<tr><td>CO</td><td>停車場、燃燒</td><td>停車場 CO 連動排風</td><td>B1/B2 各防火分區</td></tr>
+<tr><td>濕度/微生物</td><td>凝結、積水</td><td>RH &lt; 60%、盤管排水坡度、UVGI</td><td>RH 感測器</td></tr>
+</table>
+<div class="two">
+<div class="fig"><img src="figures/ch7_filtration.png" alt="過濾位置"><div class="cap"><b>原文圖 27</b>（p.162）HVAC 系統中過濾器的可能位置：外氣側粗效＋風機後中效＋末端高效的多級配置；壓差開關跨接各級作為髒堵警報（DI 點）。</div></div>
+<div class="fig"><img src="figures/ch7_flow_tracking.png" alt="風量追蹤"><div class="cap"><b>原文圖 28</b>（p.165）HVAC 風量追蹤（Flow Tracking）：送風量與回風量維持固定差值 ΔQ = 外氣量 − 局部排氣量，藉以維持建築正壓。此圖同時是 M8 回風機控制的核心概念。</div></div>
+</div>
+<h3>6.2 煙控管理 Smoke Management</h3>
+<h4>設計原理</h4>
+<p>煙的移動受四大力驅動：<b>煙囪效應</b>（Stack Effect）、<b>浮力</b>、<b>膨脹</b>、<b>風壓與 HVAC</b>。控制手段為「<b>壓差屏障</b>」：使火災區相對鄰區維持負壓（排煙），逃生路徑（樓梯間、電梯前室）維持正壓（加壓），壓差目標 12.5–50 Pa（門開啟力 ≤133 N 為上限依據，NFPA 92）。</p>
+<div class="two">
+<div class="fig"><img src="figures/ch8_pressurization.png" alt="加壓防煙"><div class="cap"><b>原文圖 29</b>（p.177）以加壓防止煙侵入：非火災區維持正壓，氣流由避難區流向火災區——風門與風機必須在火警時切換至「煙控模式」，平時的節能邏輯全部讓位。</div></div>
+<div class="fig"><img src="figures/ch8_stairwell.png" alt="樓梯間加壓"><div class="cap"><b>原文圖 30</b>（p.180）樓梯間加壓兩法：氣壓計式洩壓風門 vs. 調變風門＋靜壓感測。門開啟數量變化時，調變式響應較穩定——驗收時以「全關/單門開/設計開門數」三種邊界條件測試。</div></div>
+</div>
+<h4>煙控系統法定要求（原書 p.179 對照）</h4>
+<ul>
+<li>符合 UL 864（控制設備列名）與 NFPA 92A（煙控系統）：專用煙控盤（UUKL 列名）、監督式接線、與火警系統優先權界面。</li>
+<li><b>Acceptance Testing 驗收測試</b>（原書 p.181）：每一煙控情境逐一啟動，量測壓差與氣流方向，記錄存證；台灣對應消防法規之排煙設備檢測與消防署查驗。</li>
+<li>低洩漏風門（Leakage Rated Dampers，UL 555S Class I/II）：煙控風門洩漏等級是規格與驗收重點。</li>
+</ul>
+<h3>6.3 測試與驗證重點</h3>
+<ol class="steps">
+<li>IAQ：CO₂ 感測器以標準氣體（0/800/1500 ppm）校驗；DCV 測試——於室內釋放 CO₂ 或模擬訊號，驗證外氣風門依設定曲線開啟。</li>
+<li>正壓驗證：門窗全關下以微壓計量測各區相對壓差，辦公大樓目標 +5~+15 Pa（對外）。</li>
+<li>煙控情境測試：依核准之煙控矩陣（Smoke Control Matrix）逐區觸發，確認風機啟停、風門位置、壓差（12.5–50 Pa）、門開啟力、氣流方向（煙霧棒）五項全數合格並錄影存證。</li>
+<li>優先權測試：火警訊號進入時，BMS 手動/自動命令必須失效（消防優先）；火警復歸後系統不得自動重啟（須人工復歸）。</li>
+</ol>
+<div class="callout pain">痛點：煙控與節能控制共用風門致動器，平時 DDC 調變、火警時消防盤強制——兩系統「搶控制權」是驗收最常見缺失。對策：煙控風門採雙線圈/雙回路設計，消防訊號直接切斷 DDC 輸出迴路（硬體優先），並在煙控矩陣中逐門標示失效方向。</div>
+<div class="callout review">① 煙移動四力為何？② 加壓防煙壓差上下限及其依據？③ DCV 的觸發變數與節能原理？④ 煙控風門為何需 UL 555S 洩漏等級？</div>
+</section>
+<!-- ================= M7 ================= -->
+<section id="m7">
+<h2>模組 7｜空調箱 AHU 控制應用（全書最精華章）</h2>
+<p class="lead">對應原書 pp.201–262。原書以「<b>功能描述 Functional Description＋控制程序圖（含項次編號）＋Features＋Conditions for Successful Operation＋Specifications＋Psychrometric Aspects</b>」六段式撰寫每個控制程序——這正是交付文件 SOO 的最佳範本，本教案 M13 直接沿用。</p>
+<h3>7.1 有效控制的先決條件（原書 p.204）</h3>
+<ul>
+<li>設備容量與負載匹配（閥門/風門正確選型，詳 M11）</li>
+<li>感測器裝在「有代表性」的位置（混風均勻處、盤管下游充分混合段）</li>
+<li>控制迴路整定正確（M1 之 PID）</li>
+<li>安全連鎖獨立於控制迴路</li>
+</ul>
+<h3>7.2 AHU 控制程序總覽流程</h3>
+<div class="mermaid">
+flowchart TD
+  A["風機啟停控制<br>Fan Start-Stop"] --> B["混風控制<br>Mixed Air Control"]
+  B --> C{"外氣條件適合免費冷卻?"}
+  C -->|是| D["節能器模式 Economizer<br>100% OA"]
+  C -->|否| E["最小外氣模式<br>Min OA"]
+  D --> F["預熱 Preheat<br>冬季防凍"]
+  E --> F
+  F --> G["加濕 Humidification"]
+  G --> H["冷卻/除濕 Cooling &amp; Dehumid."]
+  H --> I["送風溫度/靜壓控制<br>SA Temp &amp; Static"]
+  I --> J["末端 VAV Box"]
+  S["安全連鎖：煙感/凍結/高靜壓<br>（硬接線優先）"] -.隨時切入.-> A
+</div>
+<h3>7.3 風機啟停與混風控制</h3>
+<div class="two">
+<div class="fig"><img src="figures/ch10_fan_startstop.png" alt="風機啟停控制"><div class="cap"><b>原文圖 31</b>（p.209）風機系統啟停控制程序圖：軟體 On-Off-Auto 命令、運轉證明（Proof of Operation）連鎖與警報、閥門風門於停機模式之定位——注意「Features」清單即為驗收檢核表。</div></div>
+<div class="fig"><img src="figures/ch10_mixed_air.png" alt="混風控制"><div class="cap"><b>原文圖 32</b>（p.213）混風控制：混風溫度感測器經 PI 迴路調變 OA/RA 風門，維持混風設定值。冬季須防混風溫度低於凍結保護設定（通常 4.5°C）。</div></div>
+</div>
+<h3>7.4 節能器循環 Economizer（免費冷卻）</h3>
+<div class="two">
+<div class="fig"><img src="figures/ch10_economizer.png" alt="節能器控制"><div class="cap"><b>原文圖 33</b>（p.216）節能器循環：外氣溫度低於節能器設定即引入外氣輔助冷卻；OA/RA/EA 三風門連動比例，混風溫度維持設定。</div></div>
+<div class="fig"><img src="figures/ch10_econ_reset.png" alt="節能器＋送風重置"><div class="cap"><b>原文圖 34</b>（p.221）節能器控制空間溫度並重置送風設定：室溫需求與節能器決策疊加，原書附焓濕分析（Psychrometric Aspects）說明各模式在圖上的路徑。</div></div>
+</div>
+<table>
+<tr><th>節能器類型</th><th>決策變數</th><th>優點</th><th>缺點</th><th>適用</th></tr>
+<tr><td>乾球式 Dry-bulb</td><td>OA 溫度 vs. 設定（如 18°C）</td><td>感測器便宜可靠</td><td>濕熱氣候誤判</td><td>乾燥氣候、算力中心</td></tr>
+<tr><td>焓值式 Enthalpy</td><td>OA 焓值 vs. RA 焓值</td><td>理論最優</td><td>濕度感測漂移致命</td><td>需年度校驗制度</td></tr>
+<tr><td>電子焓值/露點混合</td><td>乾球＋露點上限</td><td>兼顧可靠與準確</td><td>邏輯較複雜</td><td>濕熱氣候（台灣）</td></tr>
+</table>
+<h3>7.5 全年運轉系統與 VAV 空調箱</h3>
+<div class="fig"><img src="figures/ch10_yearround.png" alt="全年系統控制"><div class="cap"><b>原文圖 35</b>（p.248）加熱＋冷卻＋節能器全年運轉控制：注意模式切換的死區（Deadband）設計——冷熱切換間必須有零能區，避免冷熱互搏。</div></div>
+<div class="fig"><img src="figures/ch10_vav_ahu.png" alt="VAV 空調箱水側節能器"><div class="cap"><b>原文圖 36</b>（p.255）VAV AHU、水側節能器、外氣風量控制之完整控制程序圖（教案擷取時已含原書功能項次表）。<b>請特別研讀圖中靜壓重置邏輯</b>：所有 VAV Box 風門開度 &lt;90% → 每 4 分鐘降低靜壓設定 0.025 kPa；任一箱全開 → 每 4 分鐘提高 0.025 kPa——這就是今日 ASHRAE Guideline 36「Trim &amp; Respond」的 1997 年原型。</div></div>
+<div class="fig"><img src="figures/ch10_vav_return_fan.png" alt="VAV 回風機流量追蹤"><div class="cap"><b>原文圖 37</b>（p.258）VAV AHU 回風機流量追蹤控制：回風機轉速追隨「送風量 − 固定差值」，維持建築正壓與外氣量。流量量測站（皮托管陣列）的安裝直管段是本程序成敗關鍵。</div></div>
+<h3>7.6 測試方法與驗證重點（AHU 全機）</h3>
+<ol class="steps">
+<li><b>風門連動與密封</b>：命令 OA 風門 0/50/100%，現場目視開度與回授一致；全關時以煙霧棒檢查洩漏（節能器模式錯誤的第一嫌疑犯）。</li>
+<li><b>模式切換測試</b>：模擬外氣溫度/焓值跨越節能器切換點，驗證 OA→100% 且冰水閥關閉；反向復歸無振盪。</li>
+<li><b>凍結保護</b>：短接凍結保護開關（Freezestat），風機停、OA 風門關、熱水閥全開、警報發出——四動作缺一不可。</li>
+<li><b>送風溫度迴路性能</b>：依 M1 步驟做階梯與擾動測試；節能器模式下重做一次（程序增益不同，必要時啟用參數組切換）。</li>
+<li><b>靜壓重置（Trim &amp; Respond）</b>：以軟體強制所有 VAV Box 開度 &lt;90%，觀察靜壓設定值每 4 min 遞減；強制一箱全開，觀察遞增——趨勢圖截圖存證。</li>
+<li><b>流量追蹤</b>：平衡後量測送/回風量差值，與設計外氣量核對（±10%）。</li>
+<li><b>72 hr 連續運轉趨勢</b>：關鍵點（SAT、靜壓、風門開度、閥位、模式）1 min 間隔記錄，審查日夜循環是否穩定。</li>
+</ol>
+<div class="callout pain">痛點：① 混風段風門因氣流分布不均導致「分層」（Stratification），冬季外氣在盤管底部結冰——對策：OA/RA 風門相對配置強制混合、必要時加混風葉片；② 節能器在台灣夏季幾乎無用，但<b>算力中心因 24×7 高顯熱負載，冬季與過渡季外氣仍可直接冷卻</b>——節能器設定值應依場域重新計算，不可照抄辦公大樓 18°C。</div>
+<div class="callout review">① 節能器三風門為何必須連動比例？② 凍結保護的四個連鎖動作？③ Trim &amp; Respond 邏輯的兩個方向規則？④ 為何 AHU 的 SOO 必須包含「停機模式下各閥門風門位置」？</div>
+</section>
+
+<!-- ================= M8 ================= -->
+<section id="m8">
+<h2>模組 8｜風量與風管靜壓控制 Airflow Control</h2>
+<p class="lead">對應原書 pp.263–290。VAV 系統是辦公大樓主流，也是風側節能主戰場；其核心物理是風扇相似律與風管壓力分布。</p>
+<h3>8.1 風系統基礎：系統曲線與風扇曲線</h3>
+<div class="fig"><img src="figures/ch11_vav_system.png" alt="單風管 VAV 系統"><div class="cap"><b>原文圖 38</b>（p.268）單風管變風量系統全貌：AHU 供應恆溫風，各區 VAV Box 依室溫調變風量；系統靜壓由風機轉速（VFD）或入口導葉控制。</div></div>
+<div class="callout key">風扇相似律（節能的數學基礎）：風量 ∝ 轉速；靜壓 ∝ 轉速²；<b>功率 ∝ 轉速³</b>。風量降 20% → 功率降約 49%。這是 VAV+VFD 節能 30–50% 的來源，也是靜壓重置（降壓即降轉速）效益的依據。</div>
+<h3>8.2 風量量測：皮托管與量測站</h3>
+<div class="two">
+<div class="fig"><img src="figures/ch11_pitot.png" alt="皮托管"><div class="cap"><b>原文圖 39</b>（p.277）皮托管 Pitot Tube：全壓−靜壓=動壓 Pv，流速 v=√(2Pv/ρ)。原書同頁示出「安裝不當造成之誤差」——傾斜、流場扭曲、直管段不足皆使讀值失真。</div></div>
+<div class="fig"><img src="figures/ch11_static_sensor.png" alt="靜壓感測器位置"><div class="cap"><b>原文圖 40</b>（p.280）風管靜壓感測器定位：原書建議位於風機下游最遠主幹管約 <b>2/3 處</b>（「2/3 法則」），確保最不利迴路在部分負載時仍有足夠靜壓。實務上加裝末端靜壓點做下限監視。</div></div>
+</div>
+<h3>8.3 靜壓控制策略比較</h3>
+<table>
+<tr><th>策略</th><th>原理</th><th>節能</th><th>風險</th></tr>
+<tr><td>固定靜壓設定</td><td>維持 2/3 處定壓（如 375 Pa）</td><td>基準</td><td>部分負載時過壓、風門節流噪音</td></tr>
+<tr><td>靜壓重置 Trim &amp; Respond</td><td>依 VAV Box 開度回授升降設定（M7 原書圖36）</td><td>額外 20–40% 風機能耗</td><td>需 Box 開度資料齊全；回應參數需調</td></tr>
+<tr><td>開迴路/直接建築靜壓</td><td>不回饋風管靜壓，直接依風量命令</td><td>最高</td><td>調試困難，原書列為特殊應用</td></tr>
+</table>
+<h3>8.4 測試與驗證重點</h3>
+<ul class="chk">
+<li>皮托管橫向 Traverse 量測：依原書皮托管定位法（等面積法/Tchebycheff 法則）實測風量，校準風量量測站 K 值，誤差 ≤5%。</li>
+<li>靜壓感測器位置驗證：全負載（所有 Box 最大）時 2/3 處靜壓達設計值；最遠端 Box 人口靜壓 ≥ 其所需最小值（查 Box 型錄，常見 125–250 Pa）。</li>
+<li>靜壓迴路擾動測試：強制 30% Box 同時改變風量，靜壓應在 60 s 內回穩、無持續振盪（±25 Pa）。</li>
+<li>VFD 最低轉速保護：風機不得低於喘振/馬達冷卻下限（通常 20–30 Hz），測試低速長時間運轉之馬達溫升。</li>
+<li>夜間/部分負載噪音檢查：靜壓過高下風門節流嘯音，以噪音計於典型區域量測（辦公室 NC-35~40）。</li>
+</ul>
+<div class="callout pain">痛點：靜壓感測器裝在風機出口附近（施工方便），控制永遠「感覺良好」但末端風量不足——這是 VAV 系統最經典的驗收爭議。M12 的 FPT 必須包含「最不利點風量抽測」。</div>
+<div class="callout review">① 寫出風扇相似律三式。② 2/3 法則的目的？③ 為何靜壓重置需要 VAV Box 開度回授？④ 動壓 100 Pa 對應風速約多少？（√(2×100/1.2)≈12.9 m/s）</div>
+</section>
+
+<!-- ================= M9 ================= -->
+<section id="m9">
+<h2>模組 9｜冰水／鍋爐／水配送系統控制</h2>
+<p class="lead">對應原書 pp.291–404。水側是建築能耗最大區塊（冰水主機佔全廠 40–60%），也是算力中心散熱的命脈。本章涵蓋主機原理、台數控制、冷卻水塔、泵浦系統曲線、一次/二次側架構與區域供熱。</p>
+<h3>9.1 冰水主機原理與控制</h3>
+<div class="two">
+<div class="fig"><img src="figures/ch12_chilling_system.png" alt="冰水系統"><div class="cap"><b>原文圖 41</b>（p.297）典型冰水系統：蒸發器→冰水盤管→泵浦迴路；冷凝器→冷卻水塔散熱迴路。控制目標：冰水出水溫度（CHWS）恆定於設定值（如 6.5°C）。</div></div>
+<div class="fig"><img src="figures/ch12_vapor_compression.png" alt="壓縮式循環"><div class="cap"><b>原文圖 42</b>（p.298）蒸汽壓縮式冰水主機循環與滿液式/直膨式蒸發器：壓縮機（離心/螺旋/往復/渦卷）卸載機構（導葉/滑閥/段數）是主機「部分負載效率」的決定因素。</div></div>
+</div>
+<div class="fig"><img src="figures/ch12_chiller_graphic.png" alt="單機控制圖控"><div class="cap"><b>原文圖 43</b>（p.303）單台冰水機控制圖控：Enabled by Remote／Operating Mode／Status／%Load Max &amp; Current／Alarm Status 五態 + 冰水設定值（最小/目前/最大 6–9.5°C）+ 進出水溫 + 泵浦與塔連鎖。<b>此圖即為冰水機點表設計的最小集合。</b></div></div>
+<h3>9.2 多機台數控制（Sequencing）</h3>
+<div class="fig"><img src="figures/ch12_parallel_series.png" alt="並聯與串聯冰機"><div class="cap"><b>原文圖 44</b>（p.305）並聯 vs. 串聯配管：並聯各機分擔流量（常見）；串聯上游機承擔高溫段、下游機承擔低溫段（大溫差系統，如區域供冷與部分算力中心）。原書附兩台等容量冰機之效率曲線：單機滿載效率最佳點決定加減機時機。</div></div>
+<table>
+<tr><th>加/減機依據</th><th>方法</th><th>優點</th><th>風險</th></tr>
+<tr><td>流量×溫差（kW 冷凍噸）</td><td>kW = 4.187 × Q(m³/h) × ΔT(°C) / 3.516 RT</td><td>直接反映負載</td><td>需準確流量計</td></tr>
+<tr><td>主機 %RLA（額定電流比）</td><td>現機 &gt;90% RLA 持續 15 min 加機</td><td>不需流量計</td><td>低壓差時誤判</td></tr>
+<tr><td>旁通流量方向（一次/二次側）</td><td>二次側需求 &gt; 一次側供應 → 加機</td><td>適合 P-S 系統</td><td>需旁通流量計</td></tr>
+</table>
+<h3>9.3 冷卻水塔控制</h3>
+<div class="fig"><img src="figures/ch12_cooling_tower.png" alt="冷卻水塔"><div class="cap"><b>原文圖 45</b>（p.316）冷卻水塔逆流式構造與控制：風機啟停/段數/VFD 維持冷凝器進水溫度；原書 p.317 的冷凝水溫度控制圖示出<b>主機允許的最低冷凝水溫下限</b>（通常 15.5–18°C）——低於下限主機高壓不足、效率反降甚至跳機。塔出水溫度重置（隨外氣濕球）是重要節能手段。</div></div>
+<h3>9.4 一次側/二次側泵浦系統（Primary-Secondary）</h3>
+<div class="fig"><img src="figures/ch12_primary_secondary.png" alt="一次二次側系統"><div class="cap"><b>原文圖 46</b>（p.335）典型一次側-二次側配管：一次側定流量通過主機蒸發器（保護主機），二次側變流量隨負載（VFD 節能），共通管（Decoupler）水力解耦。共通管流向是台數控制與故障診斷的關鍵訊號。</div></div>
+<div class="callout key">共通管流向判讀：二次側→一次側（正向）表示主機供水過剩，可減機；一次側→二次側（逆向）表示供水不足，需加機。逆向流動會抬高二次側供水溫度（混合），是「冰水不夠冷」投訴的隱形元兇——趨勢記錄共通管溫度即可診斷。</div>
+<h3>9.5 泵浦曲線與閥門協同（原書 pp.337–356 精華）</h3>
+<div class="fig"><img src="figures/ch12_valve_sizing_effect.png" alt="閥門尺寸對控制之影響"><div class="cap"><b>原文圖 47</b>（p.372）Oversized 閥門 vs. 正確選型閥門之控制結果：過大閥門在小開度即通過大量流量，控制迴路變成「近似開關」而振盪；正確選型則全程可調。<b>閥門選型錯誤無法用 PID 調參補救</b>——必須回頭換閥（M11）。</div></div>
+<h3>9.6 測試與驗證重點</h3>
+<ol class="steps">
+<li>主機通訊點全測：%RLA、蒸發/冷凝進出水溫、油壓、故障碼逐點比對主機面板。</li>
+<li>台數控制演練：以負載模擬（或調整設定值）觸發加機/減機，驗證延遲時間、泵浦與隔離閥連動順序、失敗備援邏輯。</li>
+<li>低冷凝水溫保護：逐步降低塔風機命令，驗證系統在接近下限時自動限制（bypass 閥或風機下限）。</li>
+<li>P-S 系統水平衡：部分負載下記錄共通管流向與溫度，確認無長期逆向流。</li>
+<li>泵浦 VFD 與差壓控制：最不利迴路差壓感測器位置驗證（同風系統 2/3 概念），差壓重置功能測試。</li>
+<li>群控整體效率：量測 kW/RT（主機＋泵＋塔），建立部分負載效率曲線作為能耗基線——算力中心以 <b>pPUE 冷卻分量</b>呈現。</li>
+</ol>
+<div class="callout pain">痛點：① 加減機只靠 %RLA，在低溫差（Low ΔT Syndrome）時多機低效並聯運轉；② 冷卻水塔冬季無防凍與下限保護，主機晨啟跳機；③ 共通管接錯方向或管徑不足，水力解耦失效。三者都需要「量測→趨勢→診斷」的試運轉方法抓出。</div>
+<div class="callout review">① 為何主機蒸發器要求定流量？② Trim &amp; Respond 概念如何應用於冰水出水溫度重置？③ 共通管逆向流代表什麼？④ kW/RT 與 COP 換算？（COP = 3.516 / kW/RT）</div>
+</section>
+
+<!-- ================= M10 ================= -->
+<section id="m10">
+<h2>模組 10｜末端與房間控制 Individual Room Control</h2>
+<p class="lead">對應原書 pp.395–424。末端是「使用者體感」的最後一哩：VAV Box、風機末端、風機盤管 FCU、熱泵、輻射板。</p>
+<div class="two">
+<div class="fig"><img src="figures/ch13_vav_atu.png" alt="VAV 末端"><div class="cap"><b>原文圖 48</b>（p.400）單風管節流式 VAV 末端：壓力無關（Pressure Independent）型內建風量感測（十字/多點皮托管）與風量控制迴路——室溫只決定「風量設定值」，實際風量由內迴路維持，不受風管靜壓波動影響。</div></div>
+<div class="fig"><img src="figures/ch13_fan_atu.png" alt="風機末端"><div class="cap"><b>原文圖 49</b>（p.405）並聯式 vs. 串聯式風機末端（Fan-Powered ATU）：並聯式風機僅加熱時啟動（抽誘導回風+再熱）；串聯式風機常轉、送風量恆定。辦公大樓外區冬季常用並聯式+電熱/熱水再熱。</div></div>
+</div>
+<div class="fig"><img src="figures/ch13_fcu.png" alt="風機盤管"><div class="cap"><b>原文圖 50</b>（p.418）風機盤管（Fan Coil Unit）：二管式（冷或熱擇一，需季節切換）與四管式（冷熱並存，高階旅館/辦公）。原書另有數位控制二管式 FCU 圖——FCU 聯網（BACnet MS/TP）已是新建案標配。</div></div>
+<h3>10.1 VAV Box 控制邏輯（單風管再熱型標準序列）</h3>
+<div class="mermaid">
+flowchart LR
+  A["室溫 &gt; 冷房設定<br>（如 24°C）"] -->|"室溫↑"| B["風量命令↑<br>最小→最大冷房風量"]
+  C["室溫在死區內<br>23–24°C"] --> D["維持最小風量<br>（換氣需求）"]
+  E["室溫 &lt; 暖房設定<br>（如 22°C）"] -->|"室溫↓"| F["先最小風量<br>→再熱閥/電熱段投入"]
+</div>
+<table>
+<tr><th>驗證項目</th><th>方法</th><th>允收標準</th></tr>
+<tr><td>風量標定（K 值）</td><td>風量罩實測 vs. Box 回授，三點（最小/中間/最大）</td><td>誤差 ≤5–10%</td></tr>
+<tr><td>壓力無關性</td><td>上下游靜壓擾動（鄰箱全關）下風量維持</td><td>波動 &lt;±10%</td></tr>
+<tr><td>最小風量</td><td>暖房模式下實測</td><td>≥換氣需求（ASHRAE 62.1）</td></tr>
+<tr><td>再熱連鎖</td><td>冷房需求存在時再熱必須關閉</td><td>冷熱互搏=0</td></tr>
+<tr><td>噪音</td><td>最大風量下室內量測</td><td>≤NC-35/40（辦公）</td></tr>
+</table>
+<h3>10.2 測試與驗證重點</h3>
+<ul class="chk">
+<li>抽測比例：同型 Box 至少 10%（且每樓層≥1 台）全項測試；異常即擴大至 25%。</li>
+<li>群控連動：Box 開度資料回傳 AHU 靜壓重置邏輯（M7/M8）之完整性。</li>
+<li>FCU：二管式季節切換（夏/冬模式）與水側閥動作方向；四管式死區驗證。</li>
+<li>無人時段測試：佔用/非佔用排程下 Box 關至最小/關閉，驗證節能與安全（電腦機房專用 Box 除外）。</li>
+</ul>
+<div class="callout review">① 壓力無關型 Box 的兩個迴路各控制什麼？② 並聯與串聯風機末端差異與適用場景？③ 為何最小風量不能設零？④ 二管式 FCU 最大的使用限制？</div>
+</section>
+
+<!-- ================= M11 ================= -->
+<section id="m11">
+<h2>模組 11｜閥門與風門選型計算 Valve &amp; Damper Engineering</h2>
+<p class="lead">對應原書 pp.427–464。<b>選型錯誤是控制失效的第一大硬體原因</b>，且無法用軟體補救。本章是設計顧問與試運轉診斷的共同語言。</p>
+<h3>11.1 閥門構造與流量特性</h3>
+<div class="two">
+<div class="fig"><img src="figures/ch14_globe_valve.png" alt="球形閥構造"><div class="cap"><b>原文圖 51</b>（p.428）球形閥（Globe Valve）組件：閥塞（Plug）輪廓決定流量特性；閥座（Seat）決定關斷等級；閥桿行程 13–38 mm。</div></div>
+<div class="fig"><img src="figures/ch14_equal_percentage.png" alt="等百分比特性"><div class="cap"><b>原文圖 52</b>（p.435）等百分比（Equal Percentage）閥之熱輸出/流量/行程特性：每等行程增加「等比例」流量——恰好補償盤管「流量↑→溫差↓」的非線性，使總增益近似線性。熱水/冰水盤管首選等百分比；蒸汽用線性。</div></div>
+</div>
+<div class="fig"><img src="figures/ch14_threeway.png" alt="三通閥"><div class="cap"><b>原文圖 53</b>（p.436）三通閥混合式（Mixing）與分流式（Diverting）及應用：混合式裝於回水側（兩進一出），分流式裝於供水側（一進兩出）。<b>裝反是常見施工錯誤</b>——閥體流向箭頭與 SOO 必須三方核對。</div></div>
+<h3>11.2 閥門選型計算（Cv 法）</h3>
+<div class="callout key">Cv 定義：1 psi 壓差下通過 60°F 水之 GPM 流量。SI 制：Q(m³/h) = Cv × √(ΔP(kPa)/100) × 0.0865（或直接用 Kv：Q = Kv√(ΔP bar)）。<br><b>選型三步驟</b>：① 由盤管負載求設計流量 Q；② 取閥門分擔壓差 ΔP（閥權度 Valve Authority N = ΔPvalve/(ΔPvalve+ΔPcircuit) 建議 ≥0.3–0.5）；③ 計算 Cv 並選大一號內最接近之閥體，核對關斷壓差（Close-off）與洩漏等級。</div>
+<div class="fig"><img src="figures/ch14_steam_sizing.png" alt="蒸汽閥選型"><div class="cap"><b>原文圖 54</b>（p.444）線性閥蒸汽應用與壓降對選型之影響：蒸汽閥以「80% 入口絕壓」法取壓差（低於臨界壓降時），高壓蒸汽須注意噪音與沖蝕。</div></div>
+<h3>11.3 風門選型</h3>
+<div class="two">
+<div class="fig"><img src="figures/ch15_damper_types.png" alt="風門類型"><div class="cap"><b>原文圖 55</b>（p.448）平行葉片/圓形風門與各種葉片邊緣密封（泡棉、卡扣、過中心壓緊、不鏽鋼彈簧片）：密封形式決定洩漏等級（Class 1A/1/2/3，AMCA 500-D）。</div></div>
+<div class="fig"><img src="figures/ch15_damper_char.png" alt="風門特性"><div class="cap"><b>原文圖 56</b>（p.458）平行葉片 vs. 對向葉片之固有特性與安裝特性：對向葉片（Opposed）特性接近線性，適合調變（混風）；平行葉片（Parallel）快開特性，適合二位置/小壓差場合。原書 p.461 並示 Oversized 風門之控制惡化——與閥門同理。</div></div>
+</div>
+<div class="fig"><img src="figures/ch15_damper_loop.png" alt="風門控制迴路"><div class="cap"><b>原文圖 57</b>（p.457）風門系統控制迴路與多節風門致動器配置：多節風門（Multi-section）以連桿/千斤頂軸（Jackshaft）同步，致動器扭力核算（Nm/m²）與失效復位彈簧為驗收重點。</div></div>
+<h3>11.4 測試與驗證重點</h3>
+<ul class="chk">
+<li>閥門：核對銘牌 Cv 與計算書；0/25/50/75/100% 行程 vs. 實際流量（有流量計時）繪製安裝特性；關斷測試（全關後盤管出風溫度回歸）。</li>
+<li>三通閥：核對混合/分流型式與配管方向；常開/常通口（Port）斷電位置。</li>
+<li>風門：全關洩漏目視/煙霧檢查；致動器扭力 vs. 風門需求扭力（製造商數據）；彈簧復位時間 &lt; 20 s（煙控/防凍）。</li>
+<li>閥權度複核：實測閥全開壓差 / 迴路總壓差，N&lt;0.25 時控制品質必差——列入缺失而非調參。</li>
+</ul>
+<div class="callout pain">痛點：發包常以「管徑同閥徑」選閥（Line-size Valve），閥門普遍 Oversized 一號以上，小負載時閥工作在 10% 行程內，控制振盪、閥座沖蝕。顧問審查時應要求提供每支閥的 Cv 計算表，而非只看管徑表。</div>
+<div class="callout review">① 等百分比特性為何適合水盤管？② 閥權度定義與建議值？③ 混合閥與分流閥安裝位置原則？④ 對向葉片風門適合調變的原因？</div>
+</section>
+<!-- ================= M12 ================= -->
+<section id="m12">
+<h2>模組 12｜試運轉測試程序與驗證方法（Cx Commissioning）</h2>
+<p class="lead">本章為教案新增（原書無專章），整合 ASHRAE Guideline 0/1、NEBB/ACG 程序與顧問實務，將前面各模組的「驗證重點」組織成可執行的標準流程。</p>
+<h3>12.1 試運轉總流程</h3>
+<div class="mermaid">
+flowchart TD
+  A["設計階段<br>設計意圖審查 DOD/ODR"] --> B["施工階段<br>自控設備進場檢驗"]
+  B --> C["預功能檢查 PFC<br>Pre-Functional Check"]
+  C --> D["點對點測試 P2P<br>Point-to-Point"]
+  D --> E["迴路校驗與 PID 整定<br>Loop Tuning"]
+  E --> F["功能性能測試 FPT<br>Functional Performance Test"]
+  F --> G["整合/連鎖測試<br>煙控/火警/備援"]
+  G --> H["趨勢記錄驗證<br>72hr~2週 Trend Review"]
+  H --> I["季節性/延遲測試<br>Seasonal &amp; Deferred Testing"]
+  I --> J["竣工文件與訓練移交<br>O&amp;M + Training"]
+  J --> K["保固期跟催<br>Warranty Review（10個月）"]
+</div>
+<h3>12.2 各階段測試程序與方法</h3>
+<h4>階段 1：預功能檢查 PFC（通電前）</h4>
+<ul class="chk">
+<li>設備銘牌 vs. 圖說（型號、量程、Cv、扭力、彈簧範圍）</li>
+<li>安裝查驗：感測器位置/插入深度、取壓口方向、直管段、遮罩接地、管路吹洗試壓完成</li>
+<li>配線查驗：迴路阻抗、絕緣（500 V megger）、極性、端子編號 vs. 迴路圖</li>
+</ul>
+<h4>階段 2：點對點測試 P2P</h4>
+<table>
+<tr><th>點型</th><th>方法</th><th>記錄內容</th></tr>
+<tr><td>DI</td><td>現場短接/斷開，BMS 確認狀態與文字描述</td><td>正常態、反應時間、警報連動</td></tr>
+<tr><td>AI</td><td>過程校驗儀注入 4/12/20 mA 或標準器比對</td><td>三點誤差、工程單位、量程</td></tr>
+<tr><td>AO</td><td>BMS 命令 0/50/100%，現場量測訊號與機械位置</td><td>線性度、動作方向</td></tr>
+<tr><td>DO</td><td>強制 ON/OFF，確認負載動作與回授一致</td><td>接點容量、連鎖行為</td></tr>
+<tr><td>通訊點</td><td>比對設備本體 HMI 數值；寫入測試（有權限者）</td><td>數值一致性、R/W 屬性、刷新率</td></tr>
+</table>
+<h4>階段 3：功能性能測試 FPT</h4>
+<p>以 SOO 為腳本，逐句驗證。每個 FPT 表單應含：<b>前置條件→測試步驟→模擬方法→預期結果→實測結果→允收基準→簽認</b>。常用模擬手法：感測器訊號注入、軟體強制（Override，測後必復歸）、設定值擾動、環境等待（配合天候）。</p>
+<h4>階段 4：趨勢記錄驗證（Trend-Based Verification）</h4>
+<div class="callout key">顧問黃金法則：<b>「FPT 證明當下能動；趨勢證明天天都對。」</b>關鍵迴路以 1–5 min 間隔連續記錄 72 hr 以上，檢查：日夜擺盪（整定不良）、冷熱同開（互搏）、設定值追隨（Offset）、設備短循環（&lt;10 min ON/OFF）、夜間基載異常。</div>
+<h4>階段 5：整合與特殊測試</h4>
+<ul class="chk">
+<li>火警/煙控整合：依煙控矩陣逐情境（M6），消防優先權、復歸程序</li>
+<li>斷電復歸：全廠/分區停電復電，設備重啟順序、時間交錯（防湧浪）、參數保存</li>
+<li>備援切換：N+1 設備輪值與故障自動切換（算力中心必測，M14）</li>
+<li>網路失效降級：BMS 伺服器離線，現場控制器自主運轉驗證</li>
+<li>季節測試：冬季預熱/防凍、夏季全負載——簽約時即應排入「延遲測試」條款</li>
+</ul>
+<h3>12.3 測試文件與簽認鏈</h3>
+<table>
+<tr><th>文件</th><th>產出時機</th><th>簽認方</th></tr>
+<tr><td>Cx Plan 試運轉計畫</td><td>設計完成</td><td>業主/顧問/承包商</td></tr>
+<tr><td>PFC 檢查表</td><td>安裝完成</td><td>施工/監造</td></tr>
+<tr><td>P2P 測試紀錄（100% 點位）</td><td>通電後</td><td>施工/Cx 顧問</td></tr>
+<tr><td>FPT 紀錄（逐 SOO）</td><td>P2P 合格後</td><td>Cx 顧問/業主見證</td></tr>
+<tr><td>Issues Log 缺失追蹤表</td><td>全程滾動</td><td>三方週會檢討</td></tr>
+<tr><td>趨勢驗證報告</td><td>FPT 後</td><td>Cx 顧問</td></tr>
+<tr><td>Final Cx Report 總報告</td><td>完工</td><td>業主核定</td></tr>
+</table>
+<div class="callout pain">痛點：工期壓縮使 P2P 與 FPT 被「合併抽測」，交屋後問題在保固期爆發且舉證困難。顧問對策：合約明定「無 P2P 全數簽認不得進入 FPT；無 FPT 不得報竣工」，並以點表總數核算測試工期（經驗值：15–25 點/人日含紀錄）。</div>
+<div class="callout review">① 排出試運轉六階段並說明各階段「守門文件」。② P2P 與 FPT 的差異？③ 為何需要季節性延遲測試？④ Issues Log 為何要三方週會檢討？</div>
+</section>
+
+<!-- ================= M13 ================= -->
+<section id="m13">
+<h2>模組 13｜交付文件完整解析 Deliverables</h2>
+<p class="lead">自控工程的交付文件是一條鏈：每一階段的文件是下一階段的輸入。缺環 = 試運轉無依據、維護無人手冊、驗收無基準。以下依生命週期解析各文件之內容要項、常見缺失與審查重點。</p>
+<h3>13.1 文件鏈總覽</h3>
+<div class="mermaid">
+flowchart LR
+  A["設計意圖書<br>Basis of Design"] --> B["控制圖說<br>Control Drawings"]
+  B --> C["IO 點表<br>Points List"]
+  B --> D["操作程序書<br>SOO"]
+  C --> E["圖控畫面<br>Graphics"]
+  D --> E
+  D --> F["控制程式<br>Programs"]
+  E --> G["測試紀錄<br>P2P/FPT"]
+  F --> G
+  G --> H["竣工圖說<br>As-Built"]
+  G --> I["O&amp;M 手冊"]
+  H --> I
+  I --> J["教育訓練教材<br>與移交簽認"]
+</div>
+<h3>13.2 逐項文件解析</h3>
+<details open><summary>① 設計意圖書（Basis of Design / OPR 對應）</summary><div class="body">
+<ul><li><b>內容</b>：業主需求（OPR）轉譯為設計基準——室內條件（溫濕度/正壓/潔淨度）、運轉時程、備援等級（N/N+1/2N）、能效目標（PUE、EUI）、監控範圍、通訊協定。</li>
+<li><b>審查重點</b>：每條需求必須「可測試」——「舒適」要寫成 24±1°C/50±10%RH；「高可靠」要寫成 N+1 與 MTTR 目標。</li></ul></div></details>
+<details><summary>② 控制圖說（Control Drawings）</summary><div class="body">
+<ul><li><b>內容</b>：系統控制示意圖（Schematic，如原書各控制程序圖）、迴路接線圖、盤體配置圖、網路架構圖、電源圖、風管/水管儀控圖（P&amp;ID 標註感測點）。</li>
+<li><b>常見缺失</b>：示意圖與接線圖點位代碼不一致；失效復位方向（FO/FC）未標示；安全連鎖未以硬接線圖示。</li></ul></div></details>
+<details><summary>③ IO 點表（Points List）</summary><div class="body">
+<ul><li>詳 M5——七欄鐵則。原書 Fig.8 I/O Summary Form 是經典格式（點型×軟體功能矩陣）。</li>
+<li><b>審查重點</b>：點數統計驅動控制器選型（每控制器預留 15–20% 備用點）；警報與趨勢欄位完整。</li></ul></div></details>
+<details><summary>④ 操作程序書 SOO（Sequence of Operation）——自控工程的靈魂文件</summary><div class="body">
+<p>沿用原書六段式（M7）：</p>
+<ol class="steps">
+<li><b>Functional Description</b>：以項次編號對照控制圖逐項說明動作。</li>
+<li><b>Features</b>：功能特性清單（即成為 FPT 檢核表）。</li>
+<li><b>Conditions for Successful Operation</b>：成功運轉前提（水力平衡完成、感測器位置、參數整定）。</li>
+<li><b>Specifications</b>：規格化敘述（控制模式、精度、回應時間）。</li>
+<li><b>Psychrometric/工程分析</b>：模式切換的熱力學依據。</li>
+<li><b>參數表</b>：所有設定值、Reset Schedule、警報限值、延遲時間之總表。</li>
+</ol>
+<p><b>審查重點</b>：每一句 SOO 都應可被一個測試步驟驗證；模糊詞（「適當地」「必要時」）全部退回。</p></div></details>
+<details><summary>⑤ 圖控畫面（Graphics）</summary><div class="body">
+<ul><li>原書 pp.191–196：頂層全區圖→設備圖逐層滲透；動態資料嵌入（如原書 Fig.9 Single Chiller Control Graphic）。</li>
+<li><b>審查重點</b>：每個動態元件對應點表一點；警報色階一致（紅=緊急）；操作員可由此執行的動作必須有權限與記錄（Audit Trail）。</li></ul></div></details>
+<details><summary>⑥ 測試紀錄與竣工文件（As-Built + O&amp;M）</summary><div class="body">
+<ul><li>As-Built：反映所有變更的圖說+點表+參數表（以 P2P/FPT 簽認版反推更新，M5 痛點對策）。</li>
+<li>O&amp;M 手冊：設備型錄、校驗週期表、備品清單、故障排除決策樹、訓練教材與簽到紀錄。</li>
+<li><b>保固條款</b>：10 個月保固檢討（涵蓋四季）與季節測試安排。</li></ul></div></details>
+<h3>13.3 交付文件查核表（顧問用）</h3>
+<table>
+<tr><th>#</th><th>查核項</th><th>不合格典型後果</th></tr>
+<tr><td>1</td><td>SOO 含全部設定值參數表且與控制器實際值一致</td><td>驗收無基準、人員異動即失能</td></tr>
+<tr><td>2</td><td>點表 100% 經 P2P 簽認且版次最新</td><td>維修查無點位</td></tr>
+<tr><td>3</td><td>安全連鎖硬接線圖與現場一致</td><td>消防查驗不通過</td></tr>
+<tr><td>4</td><td>圖控點位與點表雙向可追溯</td><td>誤操作風險</td></tr>
+<tr><td>5</td><td>趨勢記錄預設啟用（關鍵點≥1 yr 保存）</td><td>故障無法舉證分析</td></tr>
+<tr><td>6</td><td>控制程式原始檔+註解交付並版本管理</td><td>被單一廠商綁定</td></tr>
+<tr><td>7</td><td>校驗證書（感測器/儀器）在有效期內</td><td>量測不被承認</td></tr>
+<tr><td>8</td><td>教育訓練含實機操作與錄影，簽到存證</td><td>移交後操作事故</td></tr>
+</table>
+<div class="callout review">① 交付文件鏈中哪份文件是 FPT 的直接依據？（SOO）② 為何 As-Built 要由 P2P/FPT 簽認版反推？③ 點數備用率為何訂 15–20%？</div>
+</section>
+<!-- ================= M14 ================= -->
+<section id="m14">
+<h2>模組 14｜個案研究 A：AI 算力中心（AI Data Center）</h2>
+<p class="lead">以某 Tier III、IT 負載 4 MW、水冷式 DX 備援之 AI 算力中心為例，融合前述原理、IO 硬體與交付文件。GPU 機櫃單櫃 40–120 kW 時代，散熱控制已由「舒適」思維轉為「製程」思維。</p>
+<h3>14.1 需求與設計基準（BoD 摘錄）</h3>
+<table>
+<tr><th>項目</th><th>設計基準</th><th>對應模組</th></tr>
+<tr><td>冷通道溫度</td><td>24°C ±1（ASHRAE TC9.9 建議 18–27°C）</td><td>M1 PID</td></tr>
+<tr><td>濕度/露點</td><td>露點 5.5–15°C，RH ≤60%</td><td>M2 焓濕圖</td></tr>
+<tr><td>備援</td><td>冷卻 N+1，電力 2N，控制器雙網路</td><td>M4 Standalone</td></tr>
+<tr><td>PUE 目標</td><td>年均 ≤1.35（水冷+板換免費冷卻）</td><td>M9/M17</td></tr>
+<tr><td>液冷介面</td><td>CDU 二次側供水 32°C±1，TCS 迴路獨立監控</td><td>M9 水側原理延伸</td></tr>
+<tr><td>SLA 舉證</td><td>溫度/濕度趨勢 1 min 間隔，保存 ≥3 年</td><td>M5/M12</td></tr>
+</table>
+<h3>14.2 冷卻系統控制架構</h3>
+<div class="mermaid">
+flowchart TD
+  subgraph CD["冷卻分配"]
+    CH["冰水主機群 N+1<br>台數控制（kW 依據）"] --> P1["一次側泵 定流量"]
+    P1 --> DEC["共通管 Decoupler"]
+    DEC --> P2["二次側泵 VFD<br>差壓重置"]
+    HX["板換免費冷卻<br>（冷凝水 &lt; 設定即切入）"] -.並聯.- CH
+  end
+  P2 --> CRAH["CRAH 群組 N+1<br>回風 35°C → 送風 22°C"]
+  P2 --> CDU["液冷 CDU<br>一次側 32°C 水"]
+  CRAH --> CA["冷通道 24°C ±1"]
+  CA --> RACK["GPU 機櫃<br>40–120 kW/櫃"]
+  RACK --> HA["熱通道 35–40°C"]
+  HA --> CRAH
+  BMS["BMS/DCIM<br>群控＋趨勢＋PUE 計算"] -.監控.- CH
+  BMS -.監控.- CRAH
+</div>
+<h3>14.3 關鍵控制迴路解析（原理 × 本個案）</h3>
+<table>
+<tr><th>迴路</th><th>原理出處</th><th>本個案設計</th><th>驗證重點</th></tr>
+<tr><td>CRAH 送風溫度</td><td>M1 PI 控制</td><td>PB 4°C / Ti 8 min，依 IT 負載切換兩組參數</td><td>階梯負載（假負載 30→90%）下 SAT 波動 &lt;±0.5°C</td></tr>
+<tr><td>CRAH 風機群控</td><td>M8 風扇相似律</td><td>依機櫃壓差（冷/熱通道 ΔP≈20–50 Pa）群控轉速，N+1 風機待命自動併入</td><td>單機故障 30 s 內 ΔP 恢復 90%</td></tr>
+<tr><td>冰水出水溫度重置</td><td>M4 Load Reset</td><td>依最不利 CRAH 閥位重置 CHWS 6.5→10°C</td><td>重置期間無 CRAH 閥位 &gt;95% 超過 15 min</td></tr>
+<tr><td>板換免費冷卻切換</td><td>M7 節能器（水側）</td><td>冷凝水 &lt; 14°C 且持續 30 min → 板換模式；冰機待命降載</td><td>切換過程 CHWS 波動 &lt;1°C</td></tr>
+<tr><td>加濕/除濕</td><td>M2 焓濕</td><td>露點控制：&lt;5.5°C 啟電極加濕；&gt;15°C 提高冷卻除濕</td><td>標準氣體/乾濕球比對，模式無互搏</td></tr>
+<tr><td>液冷 CDU</td><td>M9 水側</td><td>二次側泵定壓差、供溫 32°C±1；洩漏偵測 DI 全區佈點</td><td>洩漏模擬 5 s 內警報＋隔離閥動作</td></tr>
+<tr><td>正壓與氣密</td><td>M6 流量追蹤</td><td>機房對外 +5 Pa；氣密檢測（Blower Door）納入 Cx</td><td>門開啟 60 s 內正壓恢復</td></tr>
+</table>
+<h3>14.4 IO 點表範例（CRAH-01 摘錄，對照原書 Fig.8 格式）</h3>
+<table>
+<tr><th>點位代碼</th><th>說明</th><th>點型/訊號</th><th>量程</th><th>警報</th><th>趨勢</th></tr>
+<tr><td>CRAH01-SAT</td><td>送風溫度</td><td>AI 4–20 mA</td><td>0–50°C</td><td>&gt;25°C 重要</td><td>1 min</td></tr>
+<tr><td>CRAH01-RAT</td><td>回風溫度</td><td>AI Pt1000</td><td>0–50°C</td><td>&gt;42°C 緊急</td><td>1 min</td></tr>
+<tr><td>CRAH01-RH</td><td>回風濕度</td><td>AI 4–20 mA</td><td>0–100%</td><td>露點越限</td><td>1 min</td></tr>
+<tr><td>CRAH01-CWV</td><td>冰水閥命令</td><td>AO 0–10 V</td><td>0–100%</td><td>—</td><td>1 min</td></tr>
+<tr><td>CRAH01-FAN-SPD</td><td>風機轉速命令</td><td>AO 4–20 mA（至 VFD）</td><td>0–100%</td><td>—</td><td>1 min</td></tr>
+<tr><td>CRAH01-FAN-ST</td><td>風機運轉狀態</td><td>DI（CT 電流感知）</td><td>—</td><td>命令≠狀態 30 s</td><td>COV</td></tr>
+<tr><td>CRAH01-FLT-DP</td><td>濾網壓差</td><td>AI 0–10 V</td><td>0–500 Pa</td><td>&gt;350 Pa 提示</td><td>15 min</td></tr>
+<tr><td>CRAH01-LEAK</td><td>底部洩漏偵測</td><td>DI NC</td><td>—</td><td>緊急＋閥隔離</td><td>COV</td></tr>
+<tr><td>CHW-SUP-T / CHW-RET-T</td><td>冰水供回水溫</td><td>AI Pt1000（成對）</td><td>0–30°C</td><td>ΔT&lt;4°C 提示（Low ΔT）</td><td>1 min</td></tr>
+<tr><td>IT-LD</td><td>IT 總負載</td><td>通訊點（Modbus 自 UPS/PQMS）</td><td>0–6 MW</td><td>—</td><td>1 min（PUE 計算）</td></tr>
+</table>
+<h3>14.5 本個案測試程序重點（Cx Level 1–5）</h3>
+<ol class="steps">
+<li>L1–L2：設備進場與安裝查驗（同 M12 PFC）。</li>
+<li>L3：P2P＋單機 FPT——CRAH 單機迴路、閥門行程、洩漏連動。</li>
+<li>L4：系統整合測試——假負載（Load Bank）25/50/75/100% 四階段，每階段 ≥2 hr，驗證群控、台數、免費冷卻切換、N+1 拉機測試（Pull-the-Plug）。</li>
+<li>L5：綜合情境演練（IST）——市電中斷+發電機+UPS 轉換期間，冷卻不中斷（飛輪/蓄水罐緩衝），溫度全程 ≤27°C。</li>
+</ol>
+<div class="callout pain">算力中心特有痛點：① <b>Load Bank 測試是唯一接近真實的驗證</b>，省略 L4 等同未驗證；② 控制器復電後 CRAH 同時全啟動造成電流湧浪與風壓衝擊——必須設交錯啟動延遲（Staggered Restart）；③ 低 ΔT 症候群使冰機效率崩落，趨勢監控 ΔT&lt;4°C 即預警；④ DCIM 與 BMS 兩套系統點位對照未驗證，PUE 算錯而無人察覺。</div>
+<h3>14.6 交付文件加碼清單（算力中心專用）</h3>
+<ul class="chk">
+<li>失敗模式分析（FMEA）：每個控制失效情境→偵測手段→緩解動作→測試編號</li>
+<li>IST 腳本書與錄影存證</li>
+<li>PUE 計算邊界定義書（量測點位置、含哪些輔機）</li>
+<li>SLA 佐證報表自動產出設定（月報）</li>
+<li>網路資安文件：VLAN 劃分、帳號權限、韌體版本清冊（IEC 62443 精神）</li>
+</ul>
+</section>
+
+<!-- ================= M15 ================= -->
+<section id="m15">
+<h2>模組 15｜個案研究 B：智慧辦公大樓</h2>
+<p class="lead">以某 28 層、36,000 m²、VAV 單風管再熱系統、兩台 500 RT 離心機+一台 200 RT 螺旋機之辦公大樓為例。重點從算力中心的「製程可靠」轉為「舒適×節能×計費」。</p>
+<h3>15.1 系統與控制策略對照</h3>
+<table>
+<tr><th>子系統</th><th>策略（原理出處）</th><th>本個案參數</th></tr>
+<tr><td>AHU（每 4 層一台）</td><td>送風 13.5°C 恆溫 + CO₂ DCV（M6）+ 靜壓 T&amp;R（M7/M8）</td><td>靜壓基準 375 Pa，T&amp;R 步階 25 Pa/5 min</td></tr>
+<tr><td>VAV Box（620 台）</td><td>壓力無關型 + 外區並聯風機再熱（M10）</td><td>最小風量 30%，外區再熱死區 1°C</td></tr>
+<tr><td>冰機群</td><td>大小機搭配台數控制（M9）</td><td>夜間/假日 200 RT 單機供應</td></tr>
+<tr><td>熱水（外區再熱）</td><td>外氣重置（M1 Reset）</td><td>OA 15°C→60°C；OA 0°C→82°C</td></tr>
+<tr><td>最佳啟停</td><td>M4 Optimum Start</td><td>佔用 08:00，學習斜率啟動 06:10–07:40 浮動</td></tr>
+<tr><td>需量控制</td><td>M4 Demand Limiting</td><td>契約 1,800 kW，卸載順序：電熱再熱→冰機→照明迴路</td></tr>
+<tr><td>租戶計費</td><td>M5 能源累計</td><td>每戶 BTU 錶＋加班空調計費</td></tr>
+</table>
+<h3>15.2 與算力中心個案之差異對照（融會貫通表）</h3>
+<table>
+<tr><th>面向</th><th>AI 算力中心</th><th>辦公大樓</th></tr>
+<tr><td>控制目標</td><td>製程參數（24×7 恆定）</td><td>舒適+節能（隨作息波動）</td></tr>
+<tr><td>負載特性</td><td>高顯熱、穩定且巨大</td><td>潛熱比例高、日夜落差大</td></tr>
+<tr><td>控制精度</td><td>±0.5–1°C、露點管理</td><td>±1–2°C、RH 40–60%</td></tr>
+<tr><td>備援思維</td><td>N+1/2N、IST 驗證</td><td>單機+維修時程管理</td></tr>
+<tr><td>節能主力</td><td>免費冷卻、高水溫、風機群控</td><td>VAV+T&amp;R、最佳啟停、需量、DCV</td></tr>
+<tr><td>驗收核心</td><td>Load Bank 全負載＋拉機測試</td><td>舒適度巡檢＋能耗基線（IPMVP）</td></tr>
+<tr><td>交付加碼</td><td>FMEA/IST/PUE 邊界</td><td>計費報表/租戶操作手冊</td></tr>
+</table>
+<h3>15.3 本個案試運轉實錄（教學案例）</h3>
+<div class="callout tip"><b>案例 1：西曬會議室下午過熱。</b>趨勢顯示該區 VAV Box 14:00 起風量全開仍 26.5°C。查：Box 最大風量設定正確、風管靜壓足夠，但該 Box 上游支管被裝修變更壓扁。教訓——趨勢定位「是風量不足」，現場勘查定位「為什麼不足」；純調參無效。</div>
+<div class="callout tip"><b>案例 2：冬季晨啟冷房投訴。</b>最佳啟動將 AHU 於 07:50 啟動，但外區再熱熱水閥被夜間模式保持關閉，冷風直灌外區。SOO 漏寫「晨啟暖機模式（Warm-up）：先 100% 回風+熱水閥開，達 21°C 再開外氣」——對照原書 p.248 全年系統之 Warm-up Mode。修改 SOO 並補 FPT 後解決。</div>
+<div class="callout tip"><b>案例 3：電費高於設計 18%。</b>能耗分析發現冰機長期兩台並聯低載（單機 35%），低 ΔT 症候群。對策：修正台數控制改以 kW 為據＋二次側泵降速＋檢查盤管閥門（3 支閥漏流）——三個月後 ΔT 由 3.2°C 回升 5.1°C，冰水側電費降 14%。</div>
+</section>
+
+<!-- ================= M16 ================= -->
+<section id="m16">
+<h2>模組 16｜其他產業應用補充</h2>
+<table>
+<tr><th>產業</th><th>控制重點</th><th>借用模組</th><th>特殊要求</th></tr>
+<tr><td><b>醫院</b></td><td>開刀房正壓+層流、隔離病房負壓、溫濕度嚴管</td><td>M6 壓差、M7 AHU</td><td>ASHRAE 170；壓差警報即時性；備援切換不中斷</td></tr>
+<tr><td><b>半導體廠</b></td><td>潔淨室（MAU+FFU+乾盤管）、外氣大量恆溫恆濕</td><td>M2 焓濕、M8 風量</td><td>ISO Class 1–7；AMC 化學過濾；±0.1°C 級製程冷卻水</td></tr>
+<tr><td><b>藥廠（GMP）</b></td><td>潔淨分級、壓差梯度、溫濕度記錄</td><td>M6、M12、M13</td><td>21 CFR Part 11 電子記錄；CSV 電腦化系統確效（IQ/OQ/PQ）</td></tr>
+<tr><td><b>商場/購物中心</b></td><td>大空間 AHU+CO₂ DCV、中庭排煙</td><td>M6 煙控、M7</td><td>人潮負載劇變；中庭煙控性能設計驗證</td></tr>
+<tr><td><b>飯店</b></td><td>四管式 FCU、客房節能（插卡/佔用感測）</td><td>M10 FCU</td><td>與 PMS 整合；浴室排風連鎖</td></tr>
+<tr><td><b>區域供冷/供熱</b></td><td>大溫差串聯冰機、熱交換站 DDC（原書 pp.380–394）</td><td>M9 串聯/HTW</td><td>原書 District Heating 章節：壓力剖面、混水站、二段式熱交換器 DDC 控制</td></tr>
+</table>
+<div class="callout key">跨產業共通心法：<b>「受控變數的『允收規格』決定控制架構」</b>——辦公室 ±2°C 用 VAV 即可；開刀房 ±1°C＋壓差梯度需定風量+精密再熱；半導體 ±0.1°C 需 MAU/FFU/乾盤管三層分工；算力中心 SLA 導向需 N+1＋趨勢舉證。先問規格，再選架構。</div>
+</section>
+
+<!-- ================= M17 ================= -->
+<section id="m17">
+<h2>模組 17｜痛點、流程、成本與效益總分析</h2>
+<h3>17.1 全生命週期痛點地圖</h3>
+<table>
+<tr><th>階段</th><th>典型痛點</th><th>根因</th><th>對策（模組）</th></tr>
+<tr><td>設計</td><td>閥門/風門 Oversized、感測器位置錯</td><td>以管徑選閥、圖說未標位置</td><td>Cv 計算書審查（M11）</td></tr>
+<tr><td>發包</td><td>規格只寫品牌不寫性能</td><td>SOO 與點表未列為投標文件</td><td>六段式 SOO（M13）</td></tr>
+<tr><td>施工</td><td>配線極性/接地錯、三通閥裝反</td><td>無 PFC 即送電</td><td>PFC 查驗（M12）</td></tr>
+<tr><td>試運轉</td><td>P2P/FPT 被抽測、趨勢未啟用</td><td>工期壓縮、無守門機制</td><td>合約守門條款（M12）</td></tr>
+<tr><td>移交</td><td>點表/圖說未竣工更新、程式無原始檔</td><td>變更未走紅線流程</td><td>As-Built 反推（M13）</td></tr>
+<tr><td>營運</td><td>參數被亂改、節能功能被停用</td><td>無趨勢基線、無權限管理</td><td>趨勢基線+Audit Trail（M18）</td></tr>
+</table>
+<h3>17.2 成本結構與效益量化</h3>
+<h4>自控系統成本佔比（典型辦公大樓，佔空調總工程費）</h4>
+<table>
+<tr><th>項目</th><th>佔比</th><th>說明</th></tr>
+<tr><td>控制器/網路/伺服器</td><td>20–25%</td><td>DDC 控制器、網路控制器、工作站</td></tr>
+<tr><td>感測器/傳送器</td><td>10–15%</td><td>精度等級決定價差（±0.1°C vs ±1°C 價差 5–10 倍）</td></tr>
+<tr><td>閥門/風門/致動器</td><td>30–40%</td><td><b>最大宗</b>——也是省錢最不該省之處（M11）</td></tr>
+<tr><td>配管配線/盤體</td><td>15–20%</td><td>含 MCC 界面</td></tr>
+<tr><td>軟體/圖控/程式</td><td>8–12%</td><td>授權點數計費常見</td></tr>
+<tr><td>試運轉/文件/訓練</td><td>5–8%</td><td><b>被砍價首選，卻是效益槓桿最高者</b></td></tr>
+</table>
+<h4>投資效益試算（36,000 m² 辦公大樓實例）</h4>
+<table>
+<tr><th>節能措施</th><th>投資（萬元）</th><th>年節省（萬元）</th><th>回收（年）</th><th>依據模組</th></tr>
+<tr><td>VAV + 靜壓 T&amp;R</td><td>280</td><td>95</td><td>2.9</td><td>M7/M8（風機³定律）</td></tr>
+<tr><td>最佳啟停+夜間循環</td><td>15（純軟體）</td><td>38</td><td>0.4</td><td>M4</td></tr>
+<tr><td>冰水溫度/冷凝水重置</td><td>10（純軟體）</td><td>45</td><td>0.2</td><td>M9</td></tr>
+<tr><td>CO₂ DCV</td><td>60</td><td>22</td><td>2.7</td><td>M6</td></tr>
+<tr><td>Retro-Cx（含低 ΔT 診斷）</td><td>40</td><td>55</td><td>0.7</td><td>M12/M15 案例3</td></tr>
+</table>
+<div class="callout key">效益鐵律：<b>純軟體策略（Reset、最佳啟停、台數邏輯）回收 &lt;1 年；硬體投資（VFD、感測器升級）回收 2–4 年；試運轉費用 5–8% 影響其餘 92% 投資是否兌現</b>——砍 Cx 預算等於對全部投資打折扣。</div>
+<h4>算力中心視角</h4>
+<ul>
+<li>PUE 1.6→1.35（4 MW IT）：年省電費約 4,000+ 萬元（以 3.5 元/度計）——冷卻群控+免費冷卻+高水溫策略為主要貢獻。</li>
+<li>一次非計畫停機之 SLA 賠償與商譽損失，往往超過全套自控系統造價——可靠度投資（N+1 控制、Standalone、IST 驗證）是保險而非成本。</li>
+</ul>
+</section>
+
+<!-- ================= M18 ================= -->
+<section id="m18">
+<h2>模組 18｜進階工程實務應用</h2>
+<h3>18.1 PID 整定實務（Ziegler-Nichols 閉迴路法 HVAC 改良）</h3>
+<ol class="steps">
+<li>切純比例控制（Ti=∞, Td=0），PB 由大漸小至持續等幅振盪，記錄臨界 PBu 與振盪週期 Tu。</li>
+<li>PI：PB = 2.2×PBu，Ti = 0.83×Tu；PID：PB = 1.7×PBu，Ti = 0.5×Tu，Td = 0.125×Tu。</li>
+<li>HVAC 折衷：上值再將 PB 放大 1.5 倍起步（寧慢勿振盪），溫度迴路多用 PI 即可，Td 僅用於快速迴路（靜壓、精密空調）。</li>
+<li>驗收：擾動測試（M1）曲線比照原書 Fig.38–40 形狀。</li>
+</ol>
+<h3>18.2 Retro-Commissioning（既有建物再調試）診斷手法</h3>
+<table>
+<tr><th>症狀（趨勢特徵）</th><th>可能根因</th><th>確認手法</th></tr>
+<tr><td>溫度日夜等幅擺盪</td><td>PB 過小/Ti 過短</td><td>階梯測試＋參數歷史</td></tr>
+<tr><td>冷熱閥同時開啟</td><td>無零能區/死區太小</td><td>趨勢疊圖（冷閥/熱閥/室溫）</td></tr>
+<tr><td>靜壓長期頂在設定值上限</td><td>T&amp;R 被停用或 Box 開度未回傳</td><td>查程式版本與點位</td></tr>
+<tr><td>冰水 ΔT&lt;4°C</td><td>盤管閥漏流/旁通/選型過大</td><td>紅外線熱像＋關斷測試</td></tr>
+<tr><td>風機夜間全速</td><td>排程或佔用偵測失效</td><td>夜間趨勢審查</td></tr>
+</table>
+<h3>18.3 現代整合與資安</h3>
+<ul>
+<li><b>通訊</b>：BACnet/IP + MS/TP 為主流；Modbus 接機電設備；MQTT/REST API 上雲（能源管理、AI 最佳化）。</li>
+<li><b>資安（IEC 62443）</b>：OT 網段隔離（VLAN/防火牆）、最小權限、韌體管理、遠端維護跳板機與 MFA、Audit Trail 啟用並留存。</li>
+<li><b>FDD 故障偵測診斷</b>：以規則引擎（如「閥 100% 而溫度不變→閥或盤管異常」）將 M15 案例經驗自動化——是 BMS 的下一層價值。</li>
+<li><b>AI 最佳化</b>：以歷史趨勢訓練負載預測，前饋調整冰機群與蓄冰/蓄水策略；前提永遠是「點表正確＋趨勢乾淨」——垃圾進、垃圾出。</li>
+</ul>
+<h3>18.4 試運轉顧問的價值主張（結語）</h3>
+<p>設計圖說保證「應該可行」、施工保證「裝起來了」，唯有試運轉證明「真的可行」。原書 1934 年首版至今，硬體從雙金屬演進到雲端 AI，但不變的是本教案反覆強調的閉環紀律：<b>規格可測 → 測試留證 → 趨勢驗證 → 文件閉環</b>。</p>
+</section>
+
+<!-- ================= M19 ================= -->
+<section id="m19">
+<h2>模組 19｜總複習與結業測驗</h2>
+<h3>19.1 知識點串聯複習（由葉回根）</h3>
+<div class="mermaid">
+flowchart BT
+  L1["閥門 Cv 選型正確"] --> G["迴路可調"]
+  L2["感測器位置有代表性"] --> G
+  L3["PID 整定得當"] --> G
+  G --> SYS["子系統穩定<br>AHU/冰機/VAV"]
+  L4["SOO 六段式完備"] --> SYS
+  SYS --> PLANT["全廠效能<br>PUE/EUI 達標"]
+  L5["P2P+FPT+趨勢驗證"] --> PLANT
+  PLANT --> BIZ["業主價值<br>舒適/可靠/節能/SLA"]
+</div>
+<h3>19.2 結業測驗（20 題，解答於各模組複習框）</h3>
+<details><summary>展開測驗題目</summary><div class="body">
+<ol>
+<li>閉迴路控制五要素為何？各舉一算力中心實例。</li>
+<li>比例控制為何必有 Offset？加入積分後如何消除？</li>
+<li>寫出外氣重置熱水溫度的線性內插公式，並計算 OA=5°C 時設定值（端點：15°C→55°C；−15°C→90°C）。</li>
+<li>焓濕圖上「冷卻除濕」路徑為何先水平後沿飽和線折彎？</li>
+<li>乾球節能器與焓值節能器在台灣氣候的取捨？</li>
+<li>噴嘴-擋板放大原理；氣動彈簧範圍分段如何實現順序控制？</li>
+<li>Series 60 與 Series 90 的迴路本質差異？</li>
+<li>RTD 三線式補償原理；4–20 mA 相比 0–10 V 的優勢？</li>
+<li>DDC 的 Standalone 能力為何是算力中心剛需？</li>
+<li>點表七欄鐵則默寫。</li>
+<li>煙控加壓壓差上下限與其依據；門開啟力限制？</li>
+<li>畫出 AHU 由啟動到送風的完整控制順序流程圖。</li>
+<li>Trim &amp; Respond 邏輯默寫（兩方向規則+時間+步階）。</li>
+<li>風扇相似律三式；風量降 20% 功率降多少？</li>
+<li>一次/二次側系統共通管逆向流動的意義與後果？</li>
+<li>等百分比閥特性為何適配水盤管？閥權度公式與建議值？</li>
+<li>試運轉六階段與各階段守門文件？</li>
+<li>FPT 表單七要素？</li>
+<li>算力中心 L4 測試為何不可省略？IST 驗證什麼？</li>
+<li>低 ΔT 症候群的三個根因與診斷手法？</li>
+</ol>
+</div></details>
+<h3>19.3 延伸閱讀與標準</h3>
+<ul>
+<li>Honeywell《Engineering Manual of Automatic Control》SI Edition（本教案藍本）</li>
+<li>ASHRAE Guideline 0/1（Commissioning）、Guideline 36（高性能控制序列）、Standard 90.1/62.1/170、TC9.9（資料中心熱環境）</li>
+<li>NFPA 92（煙控）、UL 864/555S、AMCA 500-D（風門）、ANSI/FCI 70-2（閥洩漏）</li>
+<li>IEC 62443（OT 資安）、IPMVP（節能量測驗證）、21 CFR Part 11（藥廠）</li>
+</ul>
+<div class="callout key">結業標準建議：能獨立完成一台 AHU 的「點表編製 → SOO 撰寫 → P2P 表 → FPT 腳本 → 趨勢判讀」全套文件，並通過同儕審查，即具備初階試運轉工程師能力；能診斷 M15 三案例層級之現場問題，即具備顧問潛力。</div>
+</section>
+
+<footer>
+本教案依據 Honeywell《Engineering Manual of Automatic Control for Commercial Buildings, SI Edition》（©1989/1995/1997 Honeywell Inc.）編撰，原文圖表僅供教學研究引用。<br>
+編排：資深算力中心與自動控制試運轉顧問視角｜繁體中文版｜含 58 幅原文圖表擷取解說
+</footer>
+</main></div>
+<script>
+mermaid.initialize({startOnLoad:true, theme:"default", flowchart:{htmlLabels:true, curve:"basis"}});
+</script>
+</body></html>
